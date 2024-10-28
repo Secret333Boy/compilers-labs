@@ -1,0 +1,4 @@
+fun main() {}
+
+// this should cause error
+&

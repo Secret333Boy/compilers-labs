@@ -1,0 +1,89 @@
+LowerLetter = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' 
+| 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' 
+| 'x' | 'y' | 'z';
+UpperLetter = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' 
+| 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' 
+| 'X' | 'Y' | 'Z';
+Letter = UpperLetter | LowerLetter;
+NonZeroDigit = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+Digit = '0' | NonZeroDigit;
+SpecSign = '.' | ',' | ':' | ';' | '(' | ')'
+| '=' | '+' | '-' | '*' | '/' | '<' | '>' | '!'
+| WhiteSpace | EOL;
+WhiteSpace = ' ' | '\t';
+EOL = ['\r'],'\n';
+
+
+
+SpecSymbols = ArithmOps | RelOps | BracketsOps | AssignOp | Punct;
+ArithmOps = AddOps | MultOps;
+AddOps = '+' | '-';
+MultOps = '*' | '/' | '^';
+RelOps = '===' | '==' | '<= ' | '<' | '>' | '>=' | '!=';
+BracketsOps = '(' | ')';
+AssignOp = '=';
+Punct = '.' | ',' | ':' | ';';
+InlineCommentOp = '//';
+
+
+Id = Letter, { Letter | Digit };
+IdList = Id, {',', Id };
+
+Literal = IntLiteral | RealLiteral | BoolLiteral;
+IntLiteral = [Sign], UnsignedInt;
+RealLiteral = [Sign], UnsignedReal;
+Sign = '+' | '-';
+UnsignedInt = Digit, {Digit};
+UnsignedReal = ('.', UnsignedInt)
+| (UnsignedInt, '.')
+| (UnsignedInt, '.', UnsignedInt);
+BoolLiteral = 'true' | 'false';
+
+Keyword = 'fun' | 'var' | 'while' | 'if' | 'else' | 'package' | Type;
+
+Type = 'Int' | 'Float' | 'Bool';
+VarTypeSpecifier = ':', Type;
+
+VarDeclaration = Id, [VarTypeSpecifier];
+VarDeclarationsList = VarDeclaration, { ',', VarDeclaration };
+
+
+Expression = ArithmExpression | BoolExpression;
+
+ArithmExpression = [Sign], Term
+| (ArithmExpression, '+', Term)
+| (ArithmExpression, '-', Term);
+
+Term = Factor
+| (Term, '*', Factor)
+| (Term, '/', Factor)
+| (Term, '^', Factor);
+
+Factor = Id 
+| Literal
+| ('(', ArithmExpression, ')');
+
+BoolExpression = (Expression, RelOps, Expression) | BoolLiteral;
+
+
+Block = '{', [StatementsList], '}';
+StatementsList = Statement, {';', Statement};
+
+Statement = AssignStatement | InStatement | OutStatement | WhileStatement | IfStatement;
+
+AssignStatement =  ['var'], VarDeclaration, AssignOp, Expression;
+
+InStatement='var', VarDeclaration, AssignOp, 'readln', '(', ')';
+OutStatement='print','(', Expression ,')';
+
+WhileStatement='while', '(', Expression , ')', Block;
+IfStatement='if', '(', Expression, ')', Block, ['else', (IfStatement | Block)];
+
+PackageId = Id, { '.', Id };
+PackageDeclaration = 'package', PackageId, ';';
+
+EntryPointFunName = 'main';
+
+EntryPoint = 'fun', EntryPointFunName, '(', [VarDeclarationsList], ')', Block;
+
+Grammar = PackageDeclaration, EntryPoint;

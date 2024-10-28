@@ -1,0 +1,49 @@
+package com.example.lab;
+
+fun main() {
+  var a = 1;
+  var b = 2;
+  var c = a + b;
+
+  var d: Int;
+
+  d = 3;
+
+  d = d * a;
+
+  var e: Float = .2;
+
+  e = e / 2 - 1;
+
+  var readNum: Int = readln();  
+
+  var f = -1 + e * (a ^ c) + b * (1.2 + a * (readNum - 1));
+
+  // this is variable i
+  var i = 0;
+  var l = 2;
+  while(i < 3) {
+    if (l > 410) {
+      l = l / 2;
+    } else if (l <= 0) {
+      l = l + 1;
+    } else if (l >= 20) {
+      l = l + 12;
+    } else {
+      l = l * 2;
+    }
+
+    if (i == true) {
+      if (false == 0) {
+        print(true);
+      }
+    }
+
+    if (i === 2) {
+    } else if (i != 1) {
+      print(f + i);
+    }
+
+    i = i + 1;
+  }
+}

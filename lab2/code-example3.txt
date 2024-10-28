@@ -1,0 +1,7 @@
+package com.example.lab;
+
+fu1n main() {
+  iff(true) {
+    vaar i = 1;
+  }
+}

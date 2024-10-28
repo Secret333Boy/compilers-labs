@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="generator" content="ebnf2railroad" />
+  <title>KotlinScript</title>
+  <style type="text/css">
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+:root {
+    --subtleText: #777;
+    --highlightText: hotpink;
+    --itemHeadingBackground: #eee;
+    --background: white;
+    --borderColor: #ccc;
+    --textColor: #111;
+
+    --diagramBackground: #f8f8f8;
+    --diagramLines: black;
+    --diagramText: black;
+    --terminalLines: black;
+    --terminalFill: #feffdf;
+    --nonTerminalLines: black;
+    --nonTerminalFill: #feffdf;
+    --specialSequenceLines: black;
+    --specialSequenceFill: #ffe79a;
+
+    --ebnfCodeBackground: #e8e8e8;
+    --ebnfIdentifier: #ef5a5a;
+    --ebnfTerminal: #ffa952;
+    --ebnfBaseColor: #777;
+}
+
+.theme-dark {
+    --subtleText: #777;
+    --highlightText: hotpink;
+    --itemHeadingBackground: #444;
+    --background: #333;
+    --borderColor: lightblue;
+    --textColor: #ddd;
+
+    --diagramBackground: #222;
+    --diagramLines: #3e432e;
+    --diagramText: #a7d129;
+    --terminalLines: #a7d129;
+    --terminalFill: #3e432e;
+    --nonTerminalLines: #a7d129;
+    --nonTerminalFill: #3e432e;
+    --specialSequenceLines: #a7d129;
+    --specialSequenceFill: #444;
+
+    --ebnfCodeBackground: #3e432e;
+    --ebnfIdentifier: lightblue;
+    --ebnfTerminal: #a7d129;
+    --ebnfBaseColor: #ddd;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--textColor);
+}
+
+a {
+    color: inherit;
+}
+
+a:visited {
+    color: var(--subtleText);
+}
+
+a:active, a:focus, a:hover {
+    color: var(--highlightText);
+}
+
+header {
+    border-bottom: 1px solid var(--borderColor);
+    padding: 1rem;
+}
+
+header button {
+  display: none;
+}
+
+main {
+    overflow: hidden;
+    margin-left: 300px;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    padding: 1rem 2rem 1rem 1rem;
+    z-index: 5;
+    background: var(--background);
+    width: 300px;
+    float: left;
+    overflow: auto;
+}
+
+nav h3 {
+    white-space: nowrap;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav a {
+    display: inline-block;
+    color: var(--subtleText);
+    text-decoration: none;
+    padding: 0.33rem 0;
+}
+
+article {
+    width: 100%;
+    overflow: hidden;
+    padding: 1rem 2rem;
+    border-left: 1px solid var(--borderColor);
+}
+
+article + footer {
+    padding: 1rem 2rem;
+    border-left: 1px solid var(--borderColor);
+    background: var(--itemHeadingBackground);
+}
+
+code {
+    width: 100%;
+}
+
+pre {
+    overflow: auto;
+}
+
+pre > code {
+    display: block;
+    padding: 1em;
+    background: var(--diagramBackground);
+}
+
+h4 {
+    padding: 2rem;
+    margin: 4rem -2rem 1rem -2rem;
+    background: var(--itemHeadingBackground);
+    font-size: 125%;
+}
+
+blockquote {
+    margin-left: 0;
+    margin-top: calc(1em - 1px);
+    margin-bottom: calc(1em - 1px);
+    padding: 1px 0 1px 1rem;
+    border-left: 1rem solid var(--ebnfCodeBackground);
+}
+
+dfn {
+    font-style: normal;
+    cursor: default;
+}
+
+.diagram-container {
+    background: var(--diagramBackground);
+    margin-bottom: 0.25rem;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+}
+
+/* Responsiveness */
+@media (max-width: 800px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  header {
+    padding: 0.5rem 1rem;
+    display: flex;
+  }
+
+  header h1 {
+    margin: 0 auto 0 0;
+    display: flex;
+    align-items: center;
+  }
+
+  header button {
+    display: initial;
+    position: relative;
+    z-index: 10;
+  }
+
+  header button::after {
+    content: '☰';
+    margin-left: auto;
+    font-size: 1.5rem;
+  }
+
+  main {
+    display: block;
+    position: relative;
+    margin-left: 0;
+  }
+
+  nav {
+    height: auto;
+    display: block;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(300px);
+    padding-top: 3rem;
+    background: var(--background);
+    box-shadow: 0 0 0 1000000rem rgba(0, 0, 0, 0.35);
+  }
+
+  .menu-open nav {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  nav a {
+    padding: 0.66rem 0;
+  }
+
+  article {
+    margin-left: 0;
+    border-left: 0;
+    padding: 1rem;
+  }
+  article + footer {
+    padding: 1rem;
+    border-left: 0;
+  }
+}
+
+/* EBNF text representation styling */
+code.ebnf {
+  padding: 1em;
+  background: var(--ebnfCodeBackground);
+  font-weight: bold;
+  color: var(--ebnfBaseColor);
+  white-space: pre-wrap;
+  display: inline-block;
+  width: 100%;
+}
+.ebnf-identifier {
+  color: var(--ebnfIdentifier);
+}
+.ebnf-terminal {
+  color: var(--ebnfTerminal);
+}
+.ebnf-non-terminal {
+  font-weight: normal;
+}
+.ebnf-comment {
+  font-weight: normal;
+  font-style: italic;
+  color: #999;
+}
+
+/* EBNF diagram representation styling */
+svg.railroad-diagram {
+  width: 100%;
+}
+svg.railroad-diagram path {
+  stroke-width: 3;
+  stroke: var(--diagramLines);
+  fill: rgba(0,0,0,0);
+}
+svg.railroad-diagram text {
+  font: bold 14px monospace;
+  text-anchor: middle;
+  fill: var(--diagramText);
+}
+svg.railroad-diagram text.diagram-text {
+  font-size: 12px;
+}
+svg.railroad-diagram text.diagram-arrow {
+  font-size: 16px;
+}
+svg.railroad-diagram text.label {
+  text-anchor: start;
+}
+svg.railroad-diagram text.comment {
+  font: italic 12px monospace;
+}
+svg.railroad-diagram g.non-terminal text {
+  /*font-style: italic;*/
+}
+svg.railroad-diagram g.special-sequence rect {
+  fill: var(--specialSequenceFill);
+  stroke: var(--specialSequenceLines);
+}
+svg.railroad-diagram g.special-sequence text {
+  font-style: italic;
+}
+svg.railroad-diagram rect {
+  stroke-width: 3;
+}
+svg.railroad-diagram rect.group-box {
+  stroke: gray;
+  stroke-dasharray: 10 5;
+  fill: none;
+}
+svg.railroad-diagram g.non-terminal rect {
+  fill: var(--nonTerminalFill);
+  stroke: var(--nonTerminalLines);
+}
+svg.railroad-diagram g.terminal rect {
+  fill: var(--terminalFill);
+  stroke: var(--terminalLines);
+}
+svg.railroad-diagram path.diagram-text {
+  stroke-width: 3;
+  stroke: black;
+  fill: white;
+  cursor: help;
+}
+svg.railroad-diagram g.diagram-text:hover path.diagram-text {
+  fill: #eee;
+}
+</style>
+</head>
+<body>
+
+  <script type="text/javascript">
+    const htmlTag = document.getElementsByTagName("html")[0];
+    const options = (document.location.search || "")
+      .slice(1)
+      .split("&")
+      .map(kv => kv.split("="))
+      .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+    if (options["theme"]) {
+      htmlTag.classList.add("theme-" + options["theme"]);
+    }
+  </script>
+  <header>
+    <h1>KotlinScript</h1>
+    <button type="button"></button>
+  </header>
+  <nav>
+    
+    <h3>Root elements:</h3>
+    <ul class="nav-alphabetical">
+    <li class="root-node"><a href="#Grammar">Grammar</a>
+        
+        
+      </li><li class="root-node"><a href="#IdList">IdList</a>
+        
+        
+      </li><li class="root-node"><a href="#InlineCommentOp">InlineCommentOp</a>
+        
+        
+      </li><li class="root-node"><a href="#SpecSign">SpecSign</a>
+        
+        
+      </li><li class="root-node"><a href="#SpecSymbols">SpecSymbols</a>
+        
+        
+      </li>
+    </ul>
+    
+    
+    <h3>Quick navigation:</h3>
+    <ul class="nav-alphabetical">
+    <li><a href="#AssignOp">AssignOp</a>
+        
+        
+      </li><li><a href="#AssignStatement">AssignStatement</a>
+        
+        
+      </li><li><a href="#Block">Block</a>
+        <dfn title="recursive">♺</dfn>
+        
+      </li><li><a href="#BoolExpression">BoolExpression</a>
+        
+        
+      </li><li><a href="#EOL">EOL</a>
+        
+        
+      </li><li><a href="#EntryPoint">EntryPoint</a>
+        
+        
+      </li><li><a href="#EntryPointFunName">EntryPointFunName</a>
+        
+        
+      </li><li><a href="#Factor">Factor</a>
+        
+        
+      </li><li><a href="#IfStatement">IfStatement</a>
+        <dfn title="recursive">♺</dfn>
+        
+      </li><li><a href="#InStatement">InStatement</a>
+        
+        
+      </li><li><a href="#IntLiteral">IntLiteral</a>
+        
+        
+      </li><li><a href="#Literal">Literal</a>
+        
+        
+      </li><li><a href="#OutStatement">OutStatement</a>
+        
+        
+      </li><li><a href="#PackageDeclaration">PackageDeclaration</a>
+        
+        
+      </li><li><a href="#PackageId">PackageId</a>
+        
+        
+      </li><li><a href="#RealLiteral">RealLiteral</a>
+        
+        
+      </li><li><a href="#Statement">Statement</a>
+        
+        
+      </li><li><a href="#StatementsList">StatementsList</a>
+        
+        
+      </li><li><a href="#UnsignedReal">UnsignedReal</a>
+        
+        
+      </li><li><a href="#VarDeclaration">VarDeclaration</a>
+        
+        
+      </li><li><a href="#VarDeclarationsList">VarDeclarationsList</a>
+        
+        
+      </li><li><a href="#VarTypeSpecifier">VarTypeSpecifier</a>
+        
+        
+      </li><li><a href="#WhileStatement">WhileStatement</a>
+        
+        
+      </li>
+    </ul>
+    
+    
+    <h3>Common elements:</h3>
+    <ul class="nav-alphabetical">
+    <li class="common-node"><a href="#ArithmExpression">ArithmExpression</a>
+        <dfn title="recursive">♺</dfn>
+        
+      </li><li class="common-node"><a href="#Expression">Expression</a>
+        <dfn title="recursive">♺</dfn>
+        
+      </li><li class="common-node"><a href="#Id">Id</a>
+        
+        
+      </li><li class="common-node"><a href="#Term">Term</a>
+        <dfn title="recursive">♺</dfn>
+        
+      </li><li class="common-node"><a href="#UnsignedInt">UnsignedInt</a>
+        
+        
+      </li>
+    </ul>
+    
+    
+    <h3>Character sets:</h3>
+    <ul class="nav-alphabetical">
+    <li><a href="#AddOps">AddOps</a>
+        
+        
+      </li><li><a href="#ArithmOps">ArithmOps</a>
+        
+        
+      </li><li class="common-node"><a href="#BoolLiteral">BoolLiteral</a>
+        
+        
+      </li><li><a href="#BracketsOps">BracketsOps</a>
+        
+        
+      </li><li class="common-node"><a href="#Digit">Digit</a>
+        
+        
+      </li><li class="root-node"><a href="#Keyword">Keyword</a>
+        
+        
+      </li><li class="common-node"><a href="#Letter">Letter</a>
+        
+        
+      </li><li class="common-node"><a href="#LowerLetter">LowerLetter</a>
+        
+        
+      </li><li><a href="#MultOps">MultOps</a>
+        
+        
+      </li><li class="common-node"><a href="#NonZeroDigit">NonZeroDigit</a>
+        
+        
+      </li><li><a href="#Punct">Punct</a>
+        
+        
+      </li><li class="common-node"><a href="#RelOps">RelOps</a>
+        
+        
+      </li><li class="common-node"><a href="#Sign">Sign</a>
+        
+        
+      </li><li><a href="#Type">Type</a>
+        
+        
+      </li><li class="common-node"><a href="#UpperLetter">UpperLetter</a>
+        
+        
+      </li><li><a href="#WhiteSpace">WhiteSpace</a>
+        
+        
+      </li>
+    </ul>
+    
+  </nav>
+  <main>
+  <article>
+    <section>
+  <h4 id="LowerLetter">LowerLetter</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="345.5" style="max-height: 349px;" viewBox="0 0 345.5 349"><g transform="translate(.5 .5)"><g><path d="M20 30v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 40h0"></path><path d="M305.5 40h0"></path><path d="M40 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10h147"></path><path d="M138.5 329h147a10 10 0 0 0 10 -10v-269a10 10 0 0 1 10 -10"></path><path d="M40 40h10"></path><g><path d="M50 40h0"></path><path d="M118.5 40h0"></path><path d="M50 40h20"></path><g class="terminal"><path d="M70 40h0"></path><path d="M98.5 40h0"></path><rect x="70" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="44">a</text></g><path d="M98.5 40h20"></path><path d="M50 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 70h0"></path><path d="M98.5 70h0"></path><rect x="70" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="74">b</text></g><path d="M98.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 100h0"></path><path d="M98.5 100h0"></path><rect x="70" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="104">c</text></g><path d="M98.5 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 130h0"></path><path d="M98.5 130h0"></path><rect x="70" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="134">d</text></g><path d="M98.5 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 160h0"></path><path d="M98.5 160h0"></path><rect x="70" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="164">e</text></g><path d="M98.5 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 190h0"></path><path d="M98.5 190h0"></path><rect x="70" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="194">f</text></g><path d="M98.5 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 220h0"></path><path d="M98.5 220h0"></path><rect x="70" y="209" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="224">g</text></g><path d="M98.5 220a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 250h0"></path><path d="M98.5 250h0"></path><rect x="70" y="239" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="254">h</text></g><path d="M98.5 250a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 280h0"></path><path d="M98.5 280h0"></path><rect x="70" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="284">i</text></g><path d="M98.5 280a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 310h0"></path><path d="M98.5 310h0"></path><rect x="70" y="299" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="314">j</text></g><path d="M98.5 310a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path></g><path d="M118.5 40a10 10 0 0 1 10 10v269a10 10 0 0 0 10 10"></path><path d="M118.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g><path d="M138.5 40h0"></path><path d="M207 40h0"></path><path d="M138.5 40h20"></path><g class="terminal"><path d="M158.5 40h0"></path><path d="M187 40h0"></path><rect x="158.5" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="44">k</text></g><path d="M187 40h20"></path><path d="M138.5 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 70h0"></path><path d="M187 70h0"></path><rect x="158.5" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="74">l</text></g><path d="M187 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 100h0"></path><path d="M187 100h0"></path><rect x="158.5" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="104">m</text></g><path d="M187 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 130h0"></path><path d="M187 130h0"></path><rect x="158.5" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="134">n</text></g><path d="M187 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 160h0"></path><path d="M187 160h0"></path><rect x="158.5" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="164">o</text></g><path d="M187 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 190h0"></path><path d="M187 190h0"></path><rect x="158.5" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="194">p</text></g><path d="M187 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 220h0"></path><path d="M187 220h0"></path><rect x="158.5" y="209" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="224">q</text></g><path d="M187 220a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 250h0"></path><path d="M187 250h0"></path><rect x="158.5" y="239" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="254">r</text></g><path d="M187 250a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 280h0"></path><path d="M187 280h0"></path><rect x="158.5" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="284">s</text></g><path d="M187 280a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 310h0"></path><path d="M187 310h0"></path><rect x="158.5" y="299" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="314">t</text></g><path d="M187 310a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path></g><path d="M207 40a10 10 0 0 1 10 10v269a10 10 0 0 0 10 10"></path><path d="M207 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g><path d="M227 40h0"></path><path d="M295.5 40h0"></path><path d="M227 40h20"></path><g class="terminal"><path d="M247 40h0"></path><path d="M275.5 40h0"></path><rect x="247" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="44">u</text></g><path d="M275.5 40h20"></path><path d="M227 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 70h0"></path><path d="M275.5 70h0"></path><rect x="247" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="74">v</text></g><path d="M275.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M227 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 100h0"></path><path d="M275.5 100h0"></path><rect x="247" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="104">w</text></g><path d="M275.5 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M227 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 130h0"></path><path d="M275.5 130h0"></path><rect x="247" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="134">x</text></g><path d="M275.5 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M227 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 160h0"></path><path d="M275.5 160h0"></path><rect x="247" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="164">y</text></g><path d="M275.5 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M227 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 190h0"></path><path d="M275.5 190h0"></path><rect x="247" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="194">z</text></g><path d="M275.5 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path></g><path d="M295.5 40h10"></path></g><path d="M 305.5 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">LowerLetter</span>
+  = <span class="ebnf-terminal">"a"</span> | <span class="ebnf-terminal">"b"</span> | <span class="ebnf-terminal">"c"</span> | <span class="ebnf-terminal">"d"</span> | <span class="ebnf-terminal">"e"</span> | <span class="ebnf-terminal">"f"</span> | <span class="ebnf-terminal">"g"</span>
+  | <span class="ebnf-terminal">"h"</span> | <span class="ebnf-terminal">"i"</span> | <span class="ebnf-terminal">"j"</span> | <span class="ebnf-terminal">"k"</span> | <span class="ebnf-terminal">"l"</span> | <span class="ebnf-terminal">"m"</span> | <span class="ebnf-terminal">"n"</span>
+  | <span class="ebnf-terminal">"o"</span> | <span class="ebnf-terminal">"p"</span> | <span class="ebnf-terminal">"q"</span> | <span class="ebnf-terminal">"r"</span> | <span class="ebnf-terminal">"s"</span> | <span class="ebnf-terminal">"t"</span> | <span class="ebnf-terminal">"u"</span>
+  | <span class="ebnf-terminal">"v"</span> | <span class="ebnf-terminal">"w"</span> | <span class="ebnf-terminal">"x"</span> | <span class="ebnf-terminal">"y"</span> | <span class="ebnf-terminal">"z"</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>LowerLetter</strong>:<p>
+<ul>
+<li><a href="#Letter">Letter</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="UpperLetter">UpperLetter</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="345.5" style="max-height: 349px;" viewBox="0 0 345.5 349"><g transform="translate(.5 .5)"><g><path d="M20 30v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 40h0"></path><path d="M305.5 40h0"></path><path d="M40 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10h147"></path><path d="M138.5 329h147a10 10 0 0 0 10 -10v-269a10 10 0 0 1 10 -10"></path><path d="M40 40h10"></path><g><path d="M50 40h0"></path><path d="M118.5 40h0"></path><path d="M50 40h20"></path><g class="terminal"><path d="M70 40h0"></path><path d="M98.5 40h0"></path><rect x="70" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="44">A</text></g><path d="M98.5 40h20"></path><path d="M50 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 70h0"></path><path d="M98.5 70h0"></path><rect x="70" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="74">B</text></g><path d="M98.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 100h0"></path><path d="M98.5 100h0"></path><rect x="70" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="104">C</text></g><path d="M98.5 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 130h0"></path><path d="M98.5 130h0"></path><rect x="70" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="134">D</text></g><path d="M98.5 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 160h0"></path><path d="M98.5 160h0"></path><rect x="70" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="164">E</text></g><path d="M98.5 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 190h0"></path><path d="M98.5 190h0"></path><rect x="70" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="194">F</text></g><path d="M98.5 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 220h0"></path><path d="M98.5 220h0"></path><rect x="70" y="209" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="224">G</text></g><path d="M98.5 220a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 250h0"></path><path d="M98.5 250h0"></path><rect x="70" y="239" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="254">H</text></g><path d="M98.5 250a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 280h0"></path><path d="M98.5 280h0"></path><rect x="70" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="284">I</text></g><path d="M98.5 280a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 310h0"></path><path d="M98.5 310h0"></path><rect x="70" y="299" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="314">J</text></g><path d="M98.5 310a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path></g><path d="M118.5 40a10 10 0 0 1 10 10v269a10 10 0 0 0 10 10"></path><path d="M118.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g><path d="M138.5 40h0"></path><path d="M207 40h0"></path><path d="M138.5 40h20"></path><g class="terminal"><path d="M158.5 40h0"></path><path d="M187 40h0"></path><rect x="158.5" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="44">K</text></g><path d="M187 40h20"></path><path d="M138.5 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 70h0"></path><path d="M187 70h0"></path><rect x="158.5" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="74">L</text></g><path d="M187 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 100h0"></path><path d="M187 100h0"></path><rect x="158.5" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="104">M</text></g><path d="M187 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 130h0"></path><path d="M187 130h0"></path><rect x="158.5" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="134">N</text></g><path d="M187 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 160h0"></path><path d="M187 160h0"></path><rect x="158.5" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="164">O</text></g><path d="M187 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 190h0"></path><path d="M187 190h0"></path><rect x="158.5" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="194">P</text></g><path d="M187 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 220h0"></path><path d="M187 220h0"></path><rect x="158.5" y="209" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="224">Q</text></g><path d="M187 220a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 250h0"></path><path d="M187 250h0"></path><rect x="158.5" y="239" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="254">R</text></g><path d="M187 250a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 280h0"></path><path d="M187 280h0"></path><rect x="158.5" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="284">S</text></g><path d="M187 280a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 310h0"></path><path d="M187 310h0"></path><rect x="158.5" y="299" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="314">T</text></g><path d="M187 310a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path></g><path d="M207 40a10 10 0 0 1 10 10v269a10 10 0 0 0 10 10"></path><path d="M207 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g><path d="M227 40h0"></path><path d="M295.5 40h0"></path><path d="M227 40h20"></path><g class="terminal"><path d="M247 40h0"></path><path d="M275.5 40h0"></path><rect x="247" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="44">U</text></g><path d="M275.5 40h20"></path><path d="M227 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 70h0"></path><path d="M275.5 70h0"></path><rect x="247" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="74">V</text></g><path d="M275.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M227 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 100h0"></path><path d="M275.5 100h0"></path><rect x="247" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="104">W</text></g><path d="M275.5 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M227 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 130h0"></path><path d="M275.5 130h0"></path><rect x="247" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="134">X</text></g><path d="M275.5 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M227 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 160h0"></path><path d="M275.5 160h0"></path><rect x="247" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="164">Y</text></g><path d="M275.5 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M227 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 190h0"></path><path d="M275.5 190h0"></path><rect x="247" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="194">Z</text></g><path d="M275.5 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path></g><path d="M295.5 40h10"></path></g><path d="M 305.5 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">UpperLetter</span>
+  = <span class="ebnf-terminal">"A"</span> | <span class="ebnf-terminal">"B"</span> | <span class="ebnf-terminal">"C"</span> | <span class="ebnf-terminal">"D"</span> | <span class="ebnf-terminal">"E"</span> | <span class="ebnf-terminal">"F"</span> | <span class="ebnf-terminal">"G"</span>
+  | <span class="ebnf-terminal">"H"</span> | <span class="ebnf-terminal">"I"</span> | <span class="ebnf-terminal">"J"</span> | <span class="ebnf-terminal">"K"</span> | <span class="ebnf-terminal">"L"</span> | <span class="ebnf-terminal">"M"</span> | <span class="ebnf-terminal">"N"</span>
+  | <span class="ebnf-terminal">"O"</span> | <span class="ebnf-terminal">"P"</span> | <span class="ebnf-terminal">"Q"</span> | <span class="ebnf-terminal">"R"</span> | <span class="ebnf-terminal">"S"</span> | <span class="ebnf-terminal">"T"</span> | <span class="ebnf-terminal">"U"</span>
+  | <span class="ebnf-terminal">"V"</span> | <span class="ebnf-terminal">"W"</span> | <span class="ebnf-terminal">"X"</span> | <span class="ebnf-terminal">"Y"</span> | <span class="ebnf-terminal">"Z"</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>UpperLetter</strong>:<p>
+<ul>
+<li><a href="#Letter">Letter</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Letter">Letter</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="233.5" style="max-height: 92px;" viewBox="0 0 233.5 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M193.5 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M173.5 31h0"></path><rect x="60" y="20" width="113.5" height="22"></rect><a xlink:href="#UpperLetter"><text x="116.75" y="35">UpperLetter</text></a></g><path d="M173.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h0"></path><path d="M173.5 61h0"></path><rect x="60" y="50" width="113.5" height="22"></rect><a xlink:href="#LowerLetter"><text x="116.75" y="65">LowerLetter</text></a></g><path d="M173.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 193.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Letter</span> = <a class="ebnf-non-terminal" href="#UpperLetter">UpperLetter</a> | <a class="ebnf-non-terminal" href="#LowerLetter">LowerLetter</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Letter</strong>:<p>
+<ul>
+<li><a href="#Id">Id</a></li>
+</ul>
+  <p><strong>Letter</strong> is referencing:<p>
+<ul>
+<li><a href="#UpperLetter">UpperLetter</a></li><li><a href="#LowerLetter">LowerLetter</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="NonZeroDigit">NonZeroDigit</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="148.5" style="max-height: 302px;" viewBox="0 0 148.5 302"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M108.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h0"></path><path d="M88.5 31h0"></path><rect x="60" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="35">1</text></g><path d="M88.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M88.5 61h0"></path><rect x="60" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="65">2</text></g><path d="M88.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 91h0"></path><path d="M88.5 91h0"></path><rect x="60" y="80" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="95">3</text></g><path d="M88.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 121h0"></path><path d="M88.5 121h0"></path><rect x="60" y="110" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="125">4</text></g><path d="M88.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 151h0"></path><path d="M88.5 151h0"></path><rect x="60" y="140" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="155">5</text></g><path d="M88.5 151a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 181h0"></path><path d="M88.5 181h0"></path><rect x="60" y="170" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="185">6</text></g><path d="M88.5 181a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 211h0"></path><path d="M88.5 211h0"></path><rect x="60" y="200" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="215">7</text></g><path d="M88.5 211a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 241h0"></path><path d="M88.5 241h0"></path><rect x="60" y="230" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="245">8</text></g><path d="M88.5 241a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 271h0"></path><path d="M88.5 271h0"></path><rect x="60" y="260" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="275">9</text></g><path d="M88.5 271a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path></g><path d="M 108.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">NonZeroDigit</span>
+  = <span class="ebnf-terminal">"1"</span> | <span class="ebnf-terminal">"2"</span> | <span class="ebnf-terminal">"3"</span> | <span class="ebnf-terminal">"4"</span> | <span class="ebnf-terminal">"5"</span> | <span class="ebnf-terminal">"6"</span> | <span class="ebnf-terminal">"7"</span>
+  | <span class="ebnf-terminal">"8"</span> | <span class="ebnf-terminal">"9"</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>NonZeroDigit</strong>:<p>
+<ul>
+<li><a href="#Digit">Digit</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Digit">Digit</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="242" style="max-height: 92px;" viewBox="0 0 242 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M202 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h46.75"></path><path d="M135.25 31h46.75"></path><rect x="106.75" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="121" y="35">0</text></g><path d="M182 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h0"></path><path d="M182 61h0"></path><rect x="60" y="50" width="122" height="22"></rect><a xlink:href="#NonZeroDigit"><text x="121" y="65">NonZeroDigit</text></a></g><path d="M182 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 202 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Digit</span> = <span class="ebnf-terminal">"0"</span> | <a class="ebnf-non-terminal" href="#NonZeroDigit">NonZeroDigit</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Digit</strong>:<p>
+<ul>
+<li><a href="#Id">Id</a></li><li><a href="#UnsignedInt">UnsignedInt</a></li>
+</ul>
+  <p><strong>Digit</strong> is referencing:<p>
+<ul>
+<li><a href="#NonZeroDigit">NonZeroDigit</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="SpecSign">SpecSign</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="372.5" style="max-height: 341px;" viewBox="0 0 372.5 341"><g transform="translate(.5 .5)"><g><path d="M20 30v20m0 -10h20"></path></g><g><path d="M40 40h0"></path><path d="M332.5 40h0"></path><path d="M40 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10h58.5"></path><path d="M138.5 255h174a10 10 0 0 0 10 -10v-195a10 10 0 0 1 10 -10"></path><path d="M40 40h10"></path><g><path d="M50 40h0"></path><path d="M118.5 40h0"></path><path d="M50 40h20"></path><g class="terminal"><path d="M70 40h0"></path><path d="M98.5 40h0"></path><rect x="70" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="44">.</text></g><path d="M98.5 40h20"></path><path d="M50 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 70h0"></path><path d="M98.5 70h0"></path><rect x="70" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="74">,</text></g><path d="M98.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 100h0"></path><path d="M98.5 100h0"></path><rect x="70" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="104">:</text></g><path d="M98.5 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 130h0"></path><path d="M98.5 130h0"></path><rect x="70" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="134">;</text></g><path d="M98.5 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 160h0"></path><path d="M98.5 160h0"></path><rect x="70" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="164">(</text></g><path d="M98.5 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 190h0"></path><path d="M98.5 190h0"></path><rect x="70" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="194">)</text></g><path d="M98.5 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 220h0"></path><path d="M98.5 220h0"></path><rect x="70" y="209" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="224">=</text></g><path d="M98.5 220a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 250h0"></path><path d="M98.5 250h0"></path><rect x="70" y="239" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="254">+</text></g><path d="M98.5 250a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 280h0"></path><path d="M98.5 280h0"></path><rect x="70" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="284">-</text></g><path d="M98.5 280a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 310h0"></path><path d="M98.5 310h0"></path><rect x="70" y="299" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="314">&#42;</text></g><path d="M98.5 310a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path></g><path d="M118.5 40a10 10 0 0 1 10 10v195a10 10 0 0 0 10 10"></path><path d="M118.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g><path d="M138.5 40h0"></path><path d="M322.5 40h0"></path><path d="M138.5 40h20"></path><g class="terminal"><path d="M158.5 40h57.75"></path><path d="M244.75 40h57.75"></path><rect x="216.25" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="230.5" y="44">/</text></g><path d="M302.5 40h20"></path><path d="M138.5 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 70h57.75"></path><path d="M244.75 70h57.75"></path><rect x="216.25" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="230.5" y="74">&#60;</text></g><path d="M302.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 100h57.75"></path><path d="M244.75 100h57.75"></path><rect x="216.25" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="230.5" y="104">></text></g><path d="M302.5 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 130h57.75"></path><path d="M244.75 130h57.75"></path><rect x="216.25" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="230.5" y="134">!</text></g><path d="M302.5 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M158.5 160h19.5"></path><path d="M283 160h19.5"></path><rect x="178" y="149" width="105" height="22"></rect><a xlink:href="#WhiteSpace"><text x="230.5" y="164">WhiteSpace</text></a></g><path d="M302.5 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v168a10 10 0 0 0 10 10"></path><g><path d="M158.5 228h0"></path><path d="M302.5 228h0"></path><rect x="158.5" y="201" width="144" height="46" rx="10" ry="10" class="group-box"></rect><g><path d="M158.5 228h10"></path><path d="M292.5 228h10"></path><g><path d="M168.5 228h0"></path><path d="M245.5 228h0"></path><path d="M168.5 228a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M188.5 208h37"></path></g><path d="M225.5 208a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M168.5 228h20"></path><g class="terminal"><path d="M188.5 228h0"></path><path d="M225.5 228h0"></path><rect x="188.5" y="217" width="37" height="22" rx="10" ry="10"></rect><text x="207" y="232">\r</text></g><path d="M225.5 228h20"></path></g><path d="M245.5 228h10"></path><g class="terminal"><path d="M255.5 228h0"></path><path d="M292.5 228h0"></path><rect x="255.5" y="217" width="37" height="22" rx="10" ry="10"></rect><text x="274" y="232">\n</text></g></g><g><path d="M158.5 190h0"></path><path d="M189.5 190h0"></path><a xlink:href="#EOL"><text x="174" y="195" class="comment">EOL</text></a></g></g><path d="M302.5 228a10 10 0 0 0 10 -10v-168a10 10 0 0 1 10 -10"></path></g><path d="M322.5 40h10"></path></g><path d="M 332.5 40 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">SpecSign</span>
+  = <span class="ebnf-terminal">"."</span> | <span class="ebnf-terminal">","</span> | <span class="ebnf-terminal">":"</span>        | <span class="ebnf-terminal">";"</span>
+  | <span class="ebnf-terminal">"("</span> | <span class="ebnf-terminal">")"</span> | <span class="ebnf-terminal">"="</span>        | <span class="ebnf-terminal">"+"</span>
+  | <span class="ebnf-terminal">"-"</span> | <span class="ebnf-terminal">"*"</span> | <span class="ebnf-terminal">"/"</span>        | <span class="ebnf-terminal">"&lt;"</span>
+  | <span class="ebnf-terminal">"&gt;"</span> | <span class="ebnf-terminal">"!"</span> | <a class="ebnf-non-terminal" href="#WhiteSpace">WhiteSpace</a> | <a class="ebnf-non-terminal" href="#EOL">EOL</a>
+  <span class="ebnf-end">;</span></code>
+  <p><strong>SpecSign</strong> is referencing:<p>
+<ul>
+<li><a href="#WhiteSpace">WhiteSpace</a></li><li><a href="#EOL">EOL</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="WhiteSpace">WhiteSpace</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="157" style="max-height: 92px;" viewBox="0 0 157 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M117 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h4.25"></path><path d="M92.75 31h4.25"></path><rect x="64.25" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="78.5" y="35"></text></g><path d="M97 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M97 61h0"></path><rect x="60" y="50" width="37" height="22" rx="10" ry="10"></rect><text x="78.5" y="65">\t</text></g><path d="M97 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 117 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">WhiteSpace</span> = <span class="ebnf-terminal">" "</span> | <span class="ebnf-terminal">"\t"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>WhiteSpace</strong>:<p>
+<ul>
+<li><a href="#SpecSign">SpecSign</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="EOL">EOL</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="224" style="max-height: 70px;" viewBox="0 0 224 70"><g transform="translate(.5 .5)"><g><path d="M20 29v20m10 -20v20m-10 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M174 39h0"></path><g><path d="M50 39h0"></path><path d="M127 39h0"></path><path d="M50 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M70 19h37"></path></g><path d="M107 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M50 39h20"></path><g class="terminal"><path d="M70 39h0"></path><path d="M107 39h0"></path><rect x="70" y="28" width="37" height="22" rx="10" ry="10"></rect><text x="88.5" y="43">\r</text></g><path d="M107 39h20"></path></g><path d="M127 39h10"></path><g class="terminal"><path d="M137 39h0"></path><path d="M174 39h0"></path><rect x="137" y="28" width="37" height="22" rx="10" ry="10"></rect><text x="155.5" y="43">\n</text></g></g><path d="M174 39h10"></path><path d="M 184 39 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">EOL</span> = [ <span class="ebnf-terminal">"\r"</span> ] , <span class="ebnf-terminal">"\n"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>EOL</strong>:<p>
+<ul>
+<li><a href="#SpecSign">SpecSign</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="SpecSymbols">SpecSymbols</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="233.5" style="max-height: 220px;" viewBox="0 0 233.5 220"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M193.5 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h8.5"></path><path d="M165 31h8.5"></path><rect x="68.5" y="20" width="96.5" height="22"></rect><a xlink:href="#ArithmOps"><text x="116.75" y="35">ArithmOps</text></a></g><path d="M173.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h21.25"></path><path d="M152.25 61h21.25"></path><rect x="81.25" y="50" width="71" height="22"></rect><a xlink:href="#RelOps"><text x="116.75" y="65">RelOps</text></a></g><path d="M173.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 91h0"></path><path d="M173.5 91h0"></path><rect x="60" y="80" width="113.5" height="22"></rect><a xlink:href="#BracketsOps"><text x="116.75" y="95">BracketsOps</text></a></g><path d="M173.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g><path d="M60 151h23.75"></path><path d="M149.75 151h23.75"></path><rect x="83.75" y="132" width="66" height="38" rx="10" ry="10" class="group-box"></rect><g class="terminal"><path d="M83.75 151h18.75"></path><path d="M131 151h18.75"></path><rect x="102.5" y="140" width="28.5" height="22" rx="10" ry="10"></rect><text x="116.75" y="155">=</text></g><g><path d="M83.75 121h0"></path><path d="M149.75 121h0"></path><a xlink:href="#AssignOp"><text x="116.75" y="126" class="comment">AssignOp</text></a></g></g><path d="M173.5 151a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v138a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 189h25.5"></path><path d="M148 189h25.5"></path><rect x="85.5" y="178" width="62.5" height="22"></rect><a xlink:href="#Punct"><text x="116.75" y="193">Punct</text></a></g><path d="M173.5 189a10 10 0 0 0 10 -10v-138a10 10 0 0 1 10 -10"></path></g><path d="M 193.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">SpecSymbols</span>
+  = <a class="ebnf-non-terminal" href="#ArithmOps">ArithmOps</a>
+  | <a class="ebnf-non-terminal" href="#RelOps">RelOps</a>
+  | <a class="ebnf-non-terminal" href="#BracketsOps">BracketsOps</a>
+  | <a class="ebnf-non-terminal" href="#AssignOp">AssignOp</a>
+  | <a class="ebnf-non-terminal" href="#Punct">Punct</a>
+  <span class="ebnf-end">;</span></code>
+  <p><strong>SpecSymbols</strong> is referencing:<p>
+<ul>
+<li><a href="#ArithmOps">ArithmOps</a></li><li><a href="#RelOps">RelOps</a></li><li><a href="#BracketsOps">BracketsOps</a></li><li><a href="#AssignOp">AssignOp</a></li><li><a href="#Punct">Punct</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="ArithmOps">ArithmOps</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="199.5" style="max-height: 92px;" viewBox="0 0 199.5 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M159.5 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h4.25"></path><path d="M135.25 31h4.25"></path><rect x="64.25" y="20" width="71" height="22"></rect><a xlink:href="#AddOps"><text x="99.75" y="35">AddOps</text></a></g><path d="M139.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h0"></path><path d="M139.5 61h0"></path><rect x="60" y="50" width="79.5" height="22"></rect><a xlink:href="#MultOps"><text x="99.75" y="65">MultOps</text></a></g><path d="M139.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 159.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">ArithmOps</span> = <a class="ebnf-non-terminal" href="#AddOps">AddOps</a> | <a class="ebnf-non-terminal" href="#MultOps">MultOps</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>ArithmOps</strong>:<p>
+<ul>
+<li><a href="#SpecSymbols">SpecSymbols</a></li>
+</ul>
+  <p><strong>ArithmOps</strong> is referencing:<p>
+<ul>
+<li><a href="#AddOps">AddOps</a></li><li><a href="#MultOps">MultOps</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="AddOps">AddOps</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="148.5" style="max-height: 92px;" viewBox="0 0 148.5 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M108.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h0"></path><path d="M88.5 31h0"></path><rect x="60" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="35">+</text></g><path d="M88.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M88.5 61h0"></path><rect x="60" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="65">-</text></g><path d="M88.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 108.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">AddOps</span> = <span class="ebnf-terminal">"+"</span> | <span class="ebnf-terminal">"-"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>AddOps</strong>:<p>
+<ul>
+<li><a href="#ArithmOps">ArithmOps</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="MultOps">MultOps</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="148.5" style="max-height: 122px;" viewBox="0 0 148.5 122"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M108.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h0"></path><path d="M88.5 31h0"></path><rect x="60" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="35">&#42;</text></g><path d="M88.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M88.5 61h0"></path><rect x="60" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="65">/</text></g><path d="M88.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 91h0"></path><path d="M88.5 91h0"></path><rect x="60" y="80" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="95">^</text></g><path d="M88.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g><path d="M 108.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">MultOps</span> = <span class="ebnf-terminal">"*"</span> | <span class="ebnf-terminal">"/"</span> | <span class="ebnf-terminal">"^"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>MultOps</strong>:<p>
+<ul>
+<li><a href="#ArithmOps">ArithmOps</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="RelOps">RelOps</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="165.5" style="max-height: 242px;" viewBox="0 0 165.5 242"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M125.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h0"></path><path d="M105.5 31h0"></path><rect x="60" y="20" width="45.5" height="22" rx="10" ry="10"></rect><text x="82.75" y="35">===</text></g><path d="M105.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h4.25"></path><path d="M101.25 61h4.25"></path><rect x="64.25" y="50" width="37" height="22" rx="10" ry="10"></rect><text x="82.75" y="65">==</text></g><path d="M105.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 91h0"></path><path d="M105.5 91h0"></path><rect x="60" y="80" width="45.5" height="22" rx="10" ry="10"></rect><text x="82.75" y="95">&#60;= </text></g><path d="M105.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 121h8.5"></path><path d="M97 121h8.5"></path><rect x="68.5" y="110" width="28.5" height="22" rx="10" ry="10"></rect><text x="82.75" y="125">&#60;</text></g><path d="M105.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 151h8.5"></path><path d="M97 151h8.5"></path><rect x="68.5" y="140" width="28.5" height="22" rx="10" ry="10"></rect><text x="82.75" y="155">></text></g><path d="M105.5 151a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 181h4.25"></path><path d="M101.25 181h4.25"></path><rect x="64.25" y="170" width="37" height="22" rx="10" ry="10"></rect><text x="82.75" y="185">>=</text></g><path d="M105.5 181a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 211h4.25"></path><path d="M101.25 211h4.25"></path><rect x="64.25" y="200" width="37" height="22" rx="10" ry="10"></rect><text x="82.75" y="215">!=</text></g><path d="M105.5 211a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path></g><path d="M 125.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">RelOps</span>
+  = <span class="ebnf-terminal">"==="</span> | <span class="ebnf-terminal">"=="</span> | <span class="ebnf-terminal">"&lt;= "</span> | <span class="ebnf-terminal">"&lt;"</span> | <span class="ebnf-terminal">"&gt;"</span> | <span class="ebnf-terminal">"&gt;="</span>
+  | <span class="ebnf-terminal">"!="</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>RelOps</strong>:<p>
+<ul>
+<li><a href="#SpecSymbols">SpecSymbols</a></li><li><a href="#BoolExpression">BoolExpression</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="BracketsOps">BracketsOps</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="148.5" style="max-height: 92px;" viewBox="0 0 148.5 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M108.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h0"></path><path d="M88.5 31h0"></path><rect x="60" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="35">(</text></g><path d="M88.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M88.5 61h0"></path><rect x="60" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="65">)</text></g><path d="M88.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 108.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">BracketsOps</span> = <span class="ebnf-terminal">"("</span> | <span class="ebnf-terminal">")"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>BracketsOps</strong>:<p>
+<ul>
+<li><a href="#SpecSymbols">SpecSymbols</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="AssignOp">AssignOp</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="128.5" style="max-height: 62px;" viewBox="0 0 128.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="terminal"><path d="M50 31h0"></path><path d="M78.5 31h0"></path><rect x="50" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="64.25" y="35">=</text></g><path d="M78.5 31h10"></path><path d="M 88.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">AssignOp</span> = <span class="ebnf-terminal">"="</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>AssignOp</strong>:<p>
+<ul>
+<li><a href="#SpecSymbols">SpecSymbols</a></li><li><a href="#AssignStatement">AssignStatement</a></li><li><a href="#InStatement">InStatement</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Punct">Punct</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="148.5" style="max-height: 152px;" viewBox="0 0 148.5 152"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M108.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h0"></path><path d="M88.5 31h0"></path><rect x="60" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="35">.</text></g><path d="M88.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M88.5 61h0"></path><rect x="60" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="65">,</text></g><path d="M88.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 91h0"></path><path d="M88.5 91h0"></path><rect x="60" y="80" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="95">:</text></g><path d="M88.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 121h0"></path><path d="M88.5 121h0"></path><rect x="60" y="110" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="125">;</text></g><path d="M88.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path></g><path d="M 108.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Punct</span> = <span class="ebnf-terminal">"."</span> | <span class="ebnf-terminal">","</span> | <span class="ebnf-terminal">":"</span> | <span class="ebnf-terminal">";"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Punct</strong>:<p>
+<ul>
+<li><a href="#SpecSymbols">SpecSymbols</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="InlineCommentOp">InlineCommentOp</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="137" style="max-height: 62px;" viewBox="0 0 137 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="terminal"><path d="M50 31h0"></path><path d="M87 31h0"></path><rect x="50" y="20" width="37" height="22" rx="10" ry="10"></rect><text x="68.5" y="35">//</text></g><path d="M87 31h10"></path><path d="M 97 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">InlineCommentOp</span> = <span class="ebnf-terminal">"//"</span> <span class="ebnf-end">;</span></code>
+</section>
+<section>
+  <h4 id="Id">Id</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="352" style="max-height: 108px;" viewBox="0 0 352 108"><g transform="translate(.5 .5)"><g><path d="M20 29v20m0 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M302 39h0"></path><g class="non-terminal"><path d="M50 39h0"></path><path d="M121 39h0"></path><rect x="50" y="28" width="71" height="22"></rect><a xlink:href="#Letter"><text x="85.5" y="43">Letter</text></a></g><path d="M121 39h10"></path><g><path d="M131 39h0"></path><path d="M302 39h0"></path><path d="M131 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M151 19h131"></path></g><path d="M282 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M131 39h20"></path><g><path d="M151 39h0"></path><path d="M282 39h0"></path><path d="M151 39h10"></path><g><path d="M161 39h0"></path><path d="M272 39h0"></path><path d="M161 39h20"></path><g class="non-terminal"><path d="M181 39h0"></path><path d="M252 39h0"></path><rect x="181" y="28" width="71" height="22"></rect><a xlink:href="#Letter"><text x="216.5" y="43">Letter</text></a></g><path d="M252 39h20"></path><path d="M161 39a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M181 69h4.25"></path><path d="M247.75 69h4.25"></path><rect x="185.25" y="58" width="62.5" height="22"></rect><a xlink:href="#Digit"><text x="216.5" y="73">Digit</text></a></g><path d="M252 69a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M272 39h10"></path><path d="M161 39a10 10 0 0 0 -10 10v29a10 10 0 0 0 10 10"></path><g><path d="M161 88h111"></path></g><path d="M272 88a10 10 0 0 0 10 -10v-29a10 10 0 0 0 -10 -10"></path></g><path d="M282 39h20"></path></g></g><path d="M302 39h10"></path><path d="M 312 39 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Id</span> = <a class="ebnf-non-terminal" href="#Letter">Letter</a> , { <a class="ebnf-non-terminal" href="#Letter">Letter</a> | <a class="ebnf-non-terminal" href="#Digit">Digit</a> } <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Id</strong>:<p>
+<ul>
+<li><a href="#IdList">IdList</a></li><li><a href="#VarDeclaration">VarDeclaration</a></li><li><a href="#Factor">Factor</a></li><li><a href="#PackageId">PackageId</a></li>
+</ul>
+  <p><strong>Id</strong> is referencing:<p>
+<ul>
+<li><a href="#Letter">Letter</a></li><li><a href="#Digit">Digit</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="IdList">IdList</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="392" style="max-height: 176px;" viewBox="0 0 392 176"><g transform="translate(.5 .5)"><g><path d="M20 59v20m0 -10h20"></path></g><path d="M40 69h10"></path><g><path d="M50 69h0"></path><path d="M342 69h0"></path><path d="M50 69h10"></path><g><path d="M60 69h0"></path><path d="M332 69h0"></path><rect x="60" y="42" width="272" height="84" rx="10" ry="10" class="group-box"></rect><g><path d="M60 69h10"></path><path d="M322 69h10"></path><g class="non-terminal"><path d="M70 69h0"></path><path d="M141 69h0"></path><rect x="70" y="58" width="71" height="22"></rect><a xlink:href="#Letter"><text x="105.5" y="73">Letter</text></a></g><path d="M141 69h10"></path><g><path d="M151 69h0"></path><path d="M322 69h0"></path><path d="M151 69a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M171 49h131"></path></g><path d="M302 49a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M151 69h20"></path><g><path d="M171 69h0"></path><path d="M302 69h0"></path><path d="M171 69h10"></path><g><path d="M181 69h0"></path><path d="M292 69h0"></path><path d="M181 69h20"></path><g class="non-terminal"><path d="M201 69h0"></path><path d="M272 69h0"></path><rect x="201" y="58" width="71" height="22"></rect><a xlink:href="#Letter"><text x="236.5" y="73">Letter</text></a></g><path d="M272 69h20"></path><path d="M181 69a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M201 99h4.25"></path><path d="M267.75 99h4.25"></path><rect x="205.25" y="88" width="62.5" height="22"></rect><a xlink:href="#Digit"><text x="236.5" y="103">Digit</text></a></g><path d="M272 99a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M292 69h10"></path><path d="M181 69a10 10 0 0 0 -10 10v29a10 10 0 0 0 10 10"></path><g><path d="M181 118h111"></path></g><path d="M292 118a10 10 0 0 0 10 -10v-29a10 10 0 0 0 -10 -10"></path></g><path d="M302 69h20"></path></g></g><g><path d="M60 31h0"></path><path d="M84 31h0"></path><a xlink:href="#Id"><text x="72" y="36" class="comment">Id</text></a></g></g><path d="M332 69h10"></path><path d="M60 69a10 10 0 0 0 -10 10v56a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 145h121.75"></path><path d="M210.25 145h121.75"></path><rect x="181.75" y="134" width="28.5" height="22" rx="10" ry="10"></rect><text x="196" y="149">,</text></g><path d="M332 145a10 10 0 0 0 10 -10v-56a10 10 0 0 0 -10 -10"></path></g><path d="M342 69h10"></path><path d="M 352 69 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">IdList</span> = <a class="ebnf-non-terminal" href="#Id">Id</a> , { <span class="ebnf-terminal">","</span> , <a class="ebnf-non-terminal" href="#Id">Id</a> } <span class="ebnf-end">;</span></code>
+  <p><strong>IdList</strong> is referencing:<p>
+<ul>
+<li><a href="#Id">Id</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Literal">Literal</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="233.5" style="max-height: 122px;" viewBox="0 0 233.5 122"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M193.5 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h4.25"></path><path d="M169.25 31h4.25"></path><rect x="64.25" y="20" width="105" height="22"></rect><a xlink:href="#IntLiteral"><text x="116.75" y="35">IntLiteral</text></a></g><path d="M173.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h0"></path><path d="M173.5 61h0"></path><rect x="60" y="50" width="113.5" height="22"></rect><a xlink:href="#RealLiteral"><text x="116.75" y="65">RealLiteral</text></a></g><path d="M173.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 91h0"></path><path d="M173.5 91h0"></path><rect x="60" y="80" width="113.5" height="22"></rect><a xlink:href="#BoolLiteral"><text x="116.75" y="95">BoolLiteral</text></a></g><path d="M173.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g><path d="M 193.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Literal</span> = <a class="ebnf-non-terminal" href="#IntLiteral">IntLiteral</a> | <a class="ebnf-non-terminal" href="#RealLiteral">RealLiteral</a> | <a class="ebnf-non-terminal" href="#BoolLiteral">BoolLiteral</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Literal</strong>:<p>
+<ul>
+<li><a href="#Factor">Factor</a></li>
+</ul>
+  <p><strong>Literal</strong> is referencing:<p>
+<ul>
+<li><a href="#IntLiteral">IntLiteral</a></li><li><a href="#RealLiteral">RealLiteral</a></li><li><a href="#BoolLiteral">BoolLiteral</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="IntLiteral">IntLiteral</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="317.5" style="max-height: 70px;" viewBox="0 0 317.5 70"><g transform="translate(.5 .5)"><g><path d="M20 29v20m0 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M267.5 39h0"></path><g><path d="M50 39h0"></path><path d="M144 39h0"></path><path d="M50 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M70 19h54"></path></g><path d="M124 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M50 39h20"></path><g class="non-terminal"><path d="M70 39h0"></path><path d="M124 39h0"></path><rect x="70" y="28" width="54" height="22"></rect><a xlink:href="#Sign"><text x="97" y="43">Sign</text></a></g><path d="M124 39h20"></path></g><path d="M144 39h10"></path><g class="non-terminal"><path d="M154 39h0"></path><path d="M267.5 39h0"></path><rect x="154" y="28" width="113.5" height="22"></rect><a xlink:href="#UnsignedInt"><text x="210.75" y="43">UnsignedInt</text></a></g></g><path d="M267.5 39h10"></path><path d="M 277.5 39 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">IntLiteral</span> = [ <a class="ebnf-non-terminal" href="#Sign">Sign</a> ] , <a class="ebnf-non-terminal" href="#UnsignedInt">UnsignedInt</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>IntLiteral</strong>:<p>
+<ul>
+<li><a href="#Literal">Literal</a></li>
+</ul>
+  <p><strong>IntLiteral</strong> is referencing:<p>
+<ul>
+<li><a href="#Sign">Sign</a></li><li><a href="#UnsignedInt">UnsignedInt</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="RealLiteral">RealLiteral</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="326" style="max-height: 70px;" viewBox="0 0 326 70"><g transform="translate(.5 .5)"><g><path d="M20 29v20m0 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M276 39h0"></path><g><path d="M50 39h0"></path><path d="M144 39h0"></path><path d="M50 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M70 19h54"></path></g><path d="M124 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M50 39h20"></path><g class="non-terminal"><path d="M70 39h0"></path><path d="M124 39h0"></path><rect x="70" y="28" width="54" height="22"></rect><a xlink:href="#Sign"><text x="97" y="43">Sign</text></a></g><path d="M124 39h20"></path></g><path d="M144 39h10"></path><g class="non-terminal"><path d="M154 39h0"></path><path d="M276 39h0"></path><rect x="154" y="28" width="122" height="22"></rect><a xlink:href="#UnsignedReal"><text x="215" y="43">UnsignedReal</text></a></g></g><path d="M276 39h10"></path><path d="M 286 39 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">RealLiteral</span> = [ <a class="ebnf-non-terminal" href="#Sign">Sign</a> ] , <a class="ebnf-non-terminal" href="#UnsignedReal">UnsignedReal</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>RealLiteral</strong>:<p>
+<ul>
+<li><a href="#Literal">Literal</a></li>
+</ul>
+  <p><strong>RealLiteral</strong> is referencing:<p>
+<ul>
+<li><a href="#Sign">Sign</a></li><li><a href="#UnsignedReal">UnsignedReal</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Sign">Sign</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="148.5" style="max-height: 92px;" viewBox="0 0 148.5 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M108.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h0"></path><path d="M88.5 31h0"></path><rect x="60" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="35">+</text></g><path d="M88.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M88.5 61h0"></path><rect x="60" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="65">-</text></g><path d="M88.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 108.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Sign</span> = <span class="ebnf-terminal">"+"</span> | <span class="ebnf-terminal">"-"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Sign</strong>:<p>
+<ul>
+<li><a href="#IntLiteral">IntLiteral</a></li><li><a href="#RealLiteral">RealLiteral</a></li><li><a href="#ArithmExpression">ArithmExpression</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="UnsignedInt">UnsignedInt</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="182.5" style="max-height: 71px;" viewBox="0 0 182.5 71"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M132.5 31h0"></path><path d="M50 31h10"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M122.5 31h0"></path><rect x="60" y="20" width="62.5" height="22"></rect><a xlink:href="#Digit"><text x="91.25" y="35">Digit</text></a></g><path d="M122.5 31h10"></path><path d="M60 31a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M60 51h62.5"></path></g><path d="M122.5 51a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M132.5 31h10"></path><path d="M 142.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">UnsignedInt</span> = { <a class="ebnf-non-terminal" href="#Digit">Digit</a> }- <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>UnsignedInt</strong>:<p>
+<ul>
+<li><a href="#IntLiteral">IntLiteral</a></li><li><a href="#UnsignedReal">UnsignedReal</a></li>
+</ul>
+  <p><strong>UnsignedInt</strong> is referencing:<p>
+<ul>
+<li><a href="#Digit">Digit</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="UnsignedReal">UnsignedReal</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="445.5" style="max-height: 100px;" viewBox="0 0 445.5 100"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M405.5 31h0"></path><path d="M40 31h20"></path><g><path d="M60 31h81.75"></path><path d="M303.75 31h81.75"></path><g class="terminal"><path d="M141.75 31h0"></path><path d="M170.25 31h0"></path><rect x="141.75" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="156" y="35">.</text></g><path d="M170.25 31h10"></path><path d="M180.25 31h10"></path><g class="non-terminal"><path d="M190.25 31h0"></path><path d="M303.75 31h0"></path><rect x="190.25" y="20" width="113.5" height="22"></rect><a xlink:href="#UnsignedInt"><text x="247" y="35">UnsignedInt</text></a></g></g><path d="M385.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v18a10 10 0 0 0 10 10"></path><g><path d="M60 69h0"></path><path d="M385.5 69h0"></path><g class="non-terminal"><path d="M60 69h0"></path><path d="M173.5 69h0"></path><rect x="60" y="58" width="113.5" height="22"></rect><a xlink:href="#UnsignedInt"><text x="116.75" y="73">UnsignedInt</text></a></g><path d="M173.5 69h10"></path><path d="M183.5 69h10"></path><g class="terminal"><path d="M193.5 69h0"></path><path d="M222 69h0"></path><rect x="193.5" y="58" width="28.5" height="22" rx="10" ry="10"></rect><text x="207.75" y="73">.</text></g><path d="M222 69h10"></path><g><path d="M232 69h0"></path><path d="M385.5 69h0"></path><path d="M232 69a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M252 49h113.5"></path></g><path d="M365.5 49a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M232 69h20"></path><g class="non-terminal"><path d="M252 69h0"></path><path d="M365.5 69h0"></path><rect x="252" y="58" width="113.5" height="22"></rect><a xlink:href="#UnsignedInt"><text x="308.75" y="73">UnsignedInt</text></a></g><path d="M365.5 69h20"></path></g></g><path d="M385.5 69a10 10 0 0 0 10 -10v-18a10 10 0 0 1 10 -10"></path></g><path d="M 405.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">UnsignedReal</span>
+  = <span class="ebnf-terminal">"."</span> , <a class="ebnf-non-terminal" href="#UnsignedInt">UnsignedInt</a>
+  | <a class="ebnf-non-terminal" href="#UnsignedInt">UnsignedInt</a> , <span class="ebnf-terminal">"."</span>
+  | <a class="ebnf-non-terminal" href="#UnsignedInt">UnsignedInt</a> , <span class="ebnf-terminal">"."</span> , <a class="ebnf-non-terminal" href="#UnsignedInt">UnsignedInt</a>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>UnsignedReal</strong>:<p>
+<ul>
+<li><a href="#RealLiteral">RealLiteral</a></li>
+</ul>
+  <p><strong>UnsignedReal</strong> is referencing:<p>
+<ul>
+<li><a href="#UnsignedInt">UnsignedInt</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="BoolLiteral">BoolLiteral</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="182.5" style="max-height: 92px;" viewBox="0 0 182.5 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M142.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h4.25"></path><path d="M118.25 31h4.25"></path><rect x="64.25" y="20" width="54" height="22" rx="10" ry="10"></rect><text x="91.25" y="35">true</text></g><path d="M122.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M122.5 61h0"></path><rect x="60" y="50" width="62.5" height="22" rx="10" ry="10"></rect><text x="91.25" y="65">false</text></g><path d="M122.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 142.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">BoolLiteral</span> = <span class="ebnf-terminal">"true"</span> | <span class="ebnf-terminal">"false"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>BoolLiteral</strong>:<p>
+<ul>
+<li><a href="#Literal">Literal</a></li><li><a href="#BoolExpression">BoolExpression</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Keyword">Keyword</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="199.5" style="max-height: 242px;" viewBox="0 0 199.5 242"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M159.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h17"></path><path d="M122.5 31h17"></path><rect x="77" y="20" width="45.5" height="22" rx="10" ry="10"></rect><text x="99.75" y="35">fun</text></g><path d="M139.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h17"></path><path d="M122.5 61h17"></path><rect x="77" y="50" width="45.5" height="22" rx="10" ry="10"></rect><text x="99.75" y="65">var</text></g><path d="M139.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 91h8.5"></path><path d="M131 91h8.5"></path><rect x="68.5" y="80" width="62.5" height="22" rx="10" ry="10"></rect><text x="99.75" y="95">while</text></g><path d="M139.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 121h21.25"></path><path d="M118.25 121h21.25"></path><rect x="81.25" y="110" width="37" height="22" rx="10" ry="10"></rect><text x="99.75" y="125">if</text></g><path d="M139.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 151h12.75"></path><path d="M126.75 151h12.75"></path><rect x="72.75" y="140" width="54" height="22" rx="10" ry="10"></rect><text x="99.75" y="155">else</text></g><path d="M139.5 151a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 181h0"></path><path d="M139.5 181h0"></path><rect x="60" y="170" width="79.5" height="22" rx="10" ry="10"></rect><text x="99.75" y="185">package</text></g><path d="M139.5 181a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 211h12.75"></path><path d="M126.75 211h12.75"></path><rect x="72.75" y="200" width="54" height="22"></rect><a xlink:href="#Type"><text x="99.75" y="215">Type</text></a></g><path d="M139.5 211a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path></g><path d="M 159.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Keyword</span>
+  = <span class="ebnf-terminal">"fun"</span>  | <span class="ebnf-terminal">"var"</span>     | <span class="ebnf-terminal">"while"</span> | <span class="ebnf-terminal">"if"</span>
+  | <span class="ebnf-terminal">"else"</span> | <span class="ebnf-terminal">"package"</span> | <a class="ebnf-non-terminal" href="#Type">Type</a>
+  <span class="ebnf-end">;</span></code>
+  <p><strong>Keyword</strong> is referencing:<p>
+<ul>
+<li><a href="#Type">Type</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Type">Type</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="182.5" style="max-height: 122px;" viewBox="0 0 182.5 122"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M142.5 31h0"></path><path d="M40 31h20"></path><g class="terminal"><path d="M60 31h8.5"></path><path d="M114 31h8.5"></path><rect x="68.5" y="20" width="45.5" height="22" rx="10" ry="10"></rect><text x="91.25" y="35">Int</text></g><path d="M122.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h0"></path><path d="M122.5 61h0"></path><rect x="60" y="50" width="62.5" height="22" rx="10" ry="10"></rect><text x="91.25" y="65">Float</text></g><path d="M122.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 91h4.25"></path><path d="M118.25 91h4.25"></path><rect x="64.25" y="80" width="54" height="22" rx="10" ry="10"></rect><text x="91.25" y="95">Bool</text></g><path d="M122.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g><path d="M 142.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Type</span> = <span class="ebnf-terminal">"Int"</span> | <span class="ebnf-terminal">"Float"</span> | <span class="ebnf-terminal">"Bool"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Type</strong>:<p>
+<ul>
+<li><a href="#Keyword">Keyword</a></li><li><a href="#VarTypeSpecifier">VarTypeSpecifier</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="VarTypeSpecifier">VarTypeSpecifier</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="202.5" style="max-height: 62px;" viewBox="0 0 202.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M152.5 31h0"></path><g class="terminal"><path d="M50 31h0"></path><path d="M78.5 31h0"></path><rect x="50" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="64.25" y="35">:</text></g><path d="M78.5 31h10"></path><path d="M88.5 31h10"></path><g class="non-terminal"><path d="M98.5 31h0"></path><path d="M152.5 31h0"></path><rect x="98.5" y="20" width="54" height="22"></rect><a xlink:href="#Type"><text x="125.5" y="35">Type</text></a></g></g><path d="M152.5 31h10"></path><path d="M 162.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">VarTypeSpecifier</span> = <span class="ebnf-terminal">":"</span> , <a class="ebnf-non-terminal" href="#Type">Type</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>VarTypeSpecifier</strong>:<p>
+<ul>
+<li><a href="#VarDeclaration">VarDeclaration</a></li>
+</ul>
+  <p><strong>VarTypeSpecifier</strong> is referencing:<p>
+<ul>
+<li><a href="#Type">Type</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="VarDeclaration">VarDeclaration</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="343" style="max-height: 70px;" viewBox="0 0 343 70"><g transform="translate(.5 .5)"><g><path d="M20 29v20m0 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M293 39h0"></path><g class="non-terminal"><path d="M50 39h0"></path><path d="M87 39h0"></path><rect x="50" y="28" width="37" height="22"></rect><a xlink:href="#Id"><text x="68.5" y="43">Id</text></a></g><path d="M87 39h10"></path><g><path d="M97 39h0"></path><path d="M293 39h0"></path><path d="M97 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M117 19h156"></path></g><path d="M273 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M97 39h20"></path><g class="non-terminal"><path d="M117 39h0"></path><path d="M273 39h0"></path><rect x="117" y="28" width="156" height="22"></rect><a xlink:href="#VarTypeSpecifier"><text x="195" y="43">VarTypeSpecifier</text></a></g><path d="M273 39h20"></path></g></g><path d="M293 39h10"></path><path d="M 303 39 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">VarDeclaration</span> = <a class="ebnf-non-terminal" href="#Id">Id</a> , [ <a class="ebnf-non-terminal" href="#VarTypeSpecifier">VarTypeSpecifier</a> ] <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>VarDeclaration</strong>:<p>
+<ul>
+<li><a href="#VarDeclarationsList">VarDeclarationsList</a></li><li><a href="#AssignStatement">AssignStatement</a></li><li><a href="#InStatement">InStatement</a></li>
+</ul>
+  <p><strong>VarDeclaration</strong> is referencing:<p>
+<ul>
+<li><a href="#Id">Id</a></li><li><a href="#VarTypeSpecifier">VarTypeSpecifier</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="VarDeclarationsList">VarDeclarationsList</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="259" style="max-height: 92px;" viewBox="0 0 259 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M209 31h0"></path><path d="M50 31h10"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M199 31h0"></path><rect x="60" y="20" width="139" height="22"></rect><a xlink:href="#VarDeclaration"><text x="129.5" y="35">VarDeclaration</text></a></g><path d="M199 31h10"></path><path d="M60 31a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h55.25"></path><path d="M143.75 61h55.25"></path><rect x="115.25" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="129.5" y="65">,</text></g><path d="M199 61a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path></g><path d="M209 31h10"></path><path d="M 219 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">VarDeclarationsList</span> = <a class="ebnf-non-terminal" href="#VarDeclaration">VarDeclaration</a> , { <span class="ebnf-terminal">","</span> , <a class="ebnf-non-terminal" href="#VarDeclaration">VarDeclaration</a> } <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>VarDeclarationsList</strong>:<p>
+<ul>
+<li><a href="#EntryPoint">EntryPoint</a></li>
+</ul>
+  <p><strong>VarDeclarationsList</strong> is referencing:<p>
+<ul>
+<li><a href="#VarDeclaration">VarDeclaration</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Expression">Expression</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="276" style="max-height: 92px;" viewBox="0 0 276 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M236 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M216 31h0"></path><rect x="60" y="20" width="156" height="22"></rect><a xlink:href="#ArithmExpression"><text x="138" y="35">ArithmExpression</text></a></g><path d="M216 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h8.5"></path><path d="M207.5 61h8.5"></path><rect x="68.5" y="50" width="139" height="22"></rect><a xlink:href="#BoolExpression"><text x="138" y="65">BoolExpression</text></a></g><path d="M216 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 236 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Expression</span> = <a class="ebnf-non-terminal" href="#ArithmExpression">ArithmExpression</a> | <a class="ebnf-non-terminal" href="#BoolExpression">BoolExpression</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Expression</strong>:<p>
+<ul>
+<li><a href="#BoolExpression">BoolExpression</a></li><li><a href="#AssignStatement">AssignStatement</a></li><li><a href="#OutStatement">OutStatement</a></li><li><a href="#WhileStatement">WhileStatement</a></li><li><a href="#IfStatement">IfStatement</a></li>
+</ul>
+  <p><strong>Expression</strong> is referencing:<p>
+<ul>
+<li><a href="#ArithmExpression">ArithmExpression</a></li><li><a href="#BoolExpression">BoolExpression</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="ArithmExpression">ArithmExpression</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="438.5" style="max-height: 142px;" viewBox="0 0 438.5 142"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M388.5 31h0"></path><g><path d="M50 31h0"></path><path d="M324.5 31h0"></path><path d="M50 31h20"></path><g><path d="M70 31h234.5"></path></g><path d="M304.5 31h20"></path><path d="M50 31a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M70 51h90.25"></path><path d="M214.25 51h90.25"></path><rect x="160.25" y="40" width="54" height="22"></rect><a xlink:href="#Sign"><text x="187.25" y="55">Sign</text></a></g><path d="M304.5 51a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><path d="M50 31a10 10 0 0 1 10 10v30a10 10 0 0 0 10 10"></path><g><path d="M70 81h0"></path><path d="M304.5 81h0"></path><g class="non-terminal"><path d="M70 81h0"></path><path d="M226 81h0"></path><rect x="70" y="70" width="156" height="22"></rect><a xlink:href="#ArithmExpression"><text x="148" y="85">ArithmExpression</text></a></g><path d="M226 81h10"></path><g><path d="M236 81h0"></path><path d="M304.5 81h0"></path><path d="M236 81h20"></path><g class="terminal"><path d="M256 81h0"></path><path d="M284.5 81h0"></path><rect x="256" y="70" width="28.5" height="22" rx="10" ry="10"></rect><text x="270.25" y="85">+</text></g><path d="M284.5 81h20"></path><path d="M236 81a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M256 111h0"></path><path d="M284.5 111h0"></path><rect x="256" y="100" width="28.5" height="22" rx="10" ry="10"></rect><text x="270.25" y="115">-</text></g><path d="M284.5 111a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g></g><path d="M304.5 81a10 10 0 0 0 10 -10v-30a10 10 0 0 1 10 -10"></path></g><path d="M324.5 31h10"></path><g class="non-terminal"><path d="M334.5 31h0"></path><path d="M388.5 31h0"></path><rect x="334.5" y="20" width="54" height="22"></rect><a xlink:href="#Term"><text x="361.5" y="35">Term</text></a></g></g><path d="M388.5 31h10"></path><path d="M 398.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">ArithmExpression</span>
+  = [ <a class="ebnf-non-terminal" href="#Sign">Sign</a> ] , <a class="ebnf-non-terminal" href="#Term">Term</a>
+  | <a class="ebnf-non-terminal" href="#ArithmExpression">ArithmExpression</a> , <span class="ebnf-terminal">"+"</span> , <a class="ebnf-non-terminal" href="#Term">Term</a>
+  | <a class="ebnf-non-terminal" href="#ArithmExpression">ArithmExpression</a> , <span class="ebnf-terminal">"-"</span> , <a class="ebnf-non-terminal" href="#Term">Term</a>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>ArithmExpression</strong>:<p>
+<ul>
+<li><a href="#Expression">Expression</a></li><li><a href="#ArithmExpression">ArithmExpression</a></li><li><a href="#Factor">Factor</a></li>
+</ul>
+  <p><strong>ArithmExpression</strong> is referencing:<p>
+<ul>
+<li><a href="#Sign">Sign</a></li><li><a href="#Term">Term</a></li><li><a href="#ArithmExpression">ArithmExpression</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Term">Term</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="353.5" style="max-height: 130px;" viewBox="0 0 353.5 130"><g transform="translate(.5 .5)"><g><path d="M20 29v20m0 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M303.5 39h0"></path><g><path d="M50 39h0"></path><path d="M222.5 39h0"></path><path d="M50 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M70 19h132.5"></path></g><path d="M202.5 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M50 39h20"></path><g><path d="M70 39h0"></path><path d="M202.5 39h0"></path><g class="non-terminal"><path d="M70 39h0"></path><path d="M124 39h0"></path><rect x="70" y="28" width="54" height="22"></rect><a xlink:href="#Term"><text x="97" y="43">Term</text></a></g><path d="M124 39h10"></path><g><path d="M134 39h0"></path><path d="M202.5 39h0"></path><path d="M134 39h20"></path><g class="terminal"><path d="M154 39h0"></path><path d="M182.5 39h0"></path><rect x="154" y="28" width="28.5" height="22" rx="10" ry="10"></rect><text x="168.25" y="43">&#42;</text></g><path d="M182.5 39h20"></path><path d="M134 39a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M154 69h0"></path><path d="M182.5 69h0"></path><rect x="154" y="58" width="28.5" height="22" rx="10" ry="10"></rect><text x="168.25" y="73">/</text></g><path d="M182.5 69a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M134 39a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M154 99h0"></path><path d="M182.5 99h0"></path><rect x="154" y="88" width="28.5" height="22" rx="10" ry="10"></rect><text x="168.25" y="103">^</text></g><path d="M182.5 99a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g></g><path d="M202.5 39h20"></path></g><path d="M222.5 39h10"></path><g class="non-terminal"><path d="M232.5 39h0"></path><path d="M303.5 39h0"></path><rect x="232.5" y="28" width="71" height="22"></rect><a xlink:href="#Factor"><text x="268" y="43">Factor</text></a></g></g><path d="M303.5 39h10"></path><path d="M 313.5 39 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Term</span>
+  = <a class="ebnf-non-terminal" href="#Factor">Factor</a>
+  | <a class="ebnf-non-terminal" href="#Term">Term</a> , <span class="ebnf-terminal">"*"</span> , <a class="ebnf-non-terminal" href="#Factor">Factor</a>
+  | <a class="ebnf-non-terminal" href="#Term">Term</a> , <span class="ebnf-terminal">"/"</span> , <a class="ebnf-non-terminal" href="#Factor">Factor</a>
+  | <a class="ebnf-non-terminal" href="#Term">Term</a> , <span class="ebnf-terminal">"^"</span> , <a class="ebnf-non-terminal" href="#Factor">Factor</a>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Term</strong>:<p>
+<ul>
+<li><a href="#ArithmExpression">ArithmExpression</a></li><li><a href="#Term">Term</a></li>
+</ul>
+  <p><strong>Term</strong> is referencing:<p>
+<ul>
+<li><a href="#Factor">Factor</a></li><li><a href="#Term">Term</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Factor">Factor</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="373" style="max-height: 122px;" viewBox="0 0 373 122"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M333 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h108"></path><path d="M205 31h108"></path><rect x="168" y="20" width="37" height="22"></rect><a xlink:href="#Id"><text x="186.5" y="35">Id</text></a></g><path d="M313 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h86.75"></path><path d="M226.25 61h86.75"></path><rect x="146.75" y="50" width="79.5" height="22"></rect><a xlink:href="#Literal"><text x="186.5" y="65">Literal</text></a></g><path d="M313 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g><path d="M60 91h0"></path><path d="M313 91h0"></path><g class="terminal"><path d="M60 91h0"></path><path d="M88.5 91h0"></path><rect x="60" y="80" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="95">(</text></g><path d="M88.5 91h10"></path><path d="M98.5 91h10"></path><g class="non-terminal"><path d="M108.5 91h0"></path><path d="M264.5 91h0"></path><rect x="108.5" y="80" width="156" height="22"></rect><a xlink:href="#ArithmExpression"><text x="186.5" y="95">ArithmExpression</text></a></g><path d="M264.5 91h10"></path><path d="M274.5 91h10"></path><g class="terminal"><path d="M284.5 91h0"></path><path d="M313 91h0"></path><rect x="284.5" y="80" width="28.5" height="22" rx="10" ry="10"></rect><text x="298.75" y="95">)</text></g></g><path d="M313 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g><path d="M 333 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Factor</span>
+  = <a class="ebnf-non-terminal" href="#Id">Id</a>
+  | <a class="ebnf-non-terminal" href="#Literal">Literal</a>
+  | <span class="ebnf-terminal">"("</span> , <a class="ebnf-non-terminal" href="#ArithmExpression">ArithmExpression</a> , <span class="ebnf-terminal">")"</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Factor</strong>:<p>
+<ul>
+<li><a href="#Term">Term</a></li>
+</ul>
+  <p><strong>Factor</strong> is referencing:<p>
+<ul>
+<li><a href="#Id">Id</a></li><li><a href="#Literal">Literal</a></li><li><a href="#ArithmExpression">ArithmExpression</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="BoolExpression">BoolExpression</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="441" style="max-height: 92px;" viewBox="0 0 441 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M401 31h0"></path><path d="M40 31h20"></path><g><path d="M60 31h0"></path><path d="M381 31h0"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M165 31h0"></path><rect x="60" y="20" width="105" height="22"></rect><a xlink:href="#Expression"><text x="112.5" y="35">Expression</text></a></g><path d="M165 31h10"></path><path d="M175 31h10"></path><g class="non-terminal"><path d="M185 31h0"></path><path d="M256 31h0"></path><rect x="185" y="20" width="71" height="22"></rect><a xlink:href="#RelOps"><text x="220.5" y="35">RelOps</text></a></g><path d="M256 31h10"></path><path d="M266 31h10"></path><g class="non-terminal"><path d="M276 31h0"></path><path d="M381 31h0"></path><rect x="276" y="20" width="105" height="22"></rect><a xlink:href="#Expression"><text x="328.5" y="35">Expression</text></a></g></g><path d="M381 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h103.75"></path><path d="M277.25 61h103.75"></path><rect x="163.75" y="50" width="113.5" height="22"></rect><a xlink:href="#BoolLiteral"><text x="220.5" y="65">BoolLiteral</text></a></g><path d="M381 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 401 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">BoolExpression</span>
+  = <a class="ebnf-non-terminal" href="#Expression">Expression</a> , <a class="ebnf-non-terminal" href="#RelOps">RelOps</a> , <a class="ebnf-non-terminal" href="#Expression">Expression</a>
+  | <a class="ebnf-non-terminal" href="#BoolLiteral">BoolLiteral</a>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>BoolExpression</strong>:<p>
+<ul>
+<li><a href="#Expression">Expression</a></li>
+</ul>
+  <p><strong>BoolExpression</strong> is referencing:<p>
+<ul>
+<li><a href="#Expression">Expression</a></li><li><a href="#RelOps">RelOps</a></li><li><a href="#BoolLiteral">BoolLiteral</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Block">Block</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="356" style="max-height: 70px;" viewBox="0 0 356 70"><g transform="translate(.5 .5)"><g><path d="M20 29v20m0 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M306 39h0"></path><g class="terminal"><path d="M50 39h0"></path><path d="M78.5 39h0"></path><rect x="50" y="28" width="28.5" height="22" rx="10" ry="10"></rect><text x="64.25" y="43">{</text></g><path d="M78.5 39h10"></path><g><path d="M88.5 39h0"></path><path d="M267.5 39h0"></path><path d="M88.5 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M108.5 19h139"></path></g><path d="M247.5 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M88.5 39h20"></path><g class="non-terminal"><path d="M108.5 39h0"></path><path d="M247.5 39h0"></path><rect x="108.5" y="28" width="139" height="22"></rect><a xlink:href="#StatementsList"><text x="178" y="43">StatementsList</text></a></g><path d="M247.5 39h20"></path></g><path d="M267.5 39h10"></path><g class="terminal"><path d="M277.5 39h0"></path><path d="M306 39h0"></path><rect x="277.5" y="28" width="28.5" height="22" rx="10" ry="10"></rect><text x="291.75" y="43">}</text></g></g><path d="M306 39h10"></path><path d="M 316 39 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Block</span> = <span class="ebnf-terminal">"{"</span> , [ <a class="ebnf-non-terminal" href="#StatementsList">StatementsList</a> ] , <span class="ebnf-terminal">"}"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Block</strong>:<p>
+<ul>
+<li><a href="#WhileStatement">WhileStatement</a></li><li><a href="#IfStatement">IfStatement</a></li><li><a href="#EntryPoint">EntryPoint</a></li>
+</ul>
+  <p><strong>Block</strong> is referencing:<p>
+<ul>
+<li><a href="#StatementsList">StatementsList</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="StatementsList">StatementsList</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="216.5" style="max-height: 92px;" viewBox="0 0 216.5 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M166.5 31h0"></path><path d="M50 31h10"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M156.5 31h0"></path><rect x="60" y="20" width="96.5" height="22"></rect><a xlink:href="#Statement"><text x="108.25" y="35">Statement</text></a></g><path d="M156.5 31h10"></path><path d="M60 31a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h34"></path><path d="M122.5 61h34"></path><rect x="94" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="108.25" y="65">;</text></g><path d="M156.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path></g><path d="M166.5 31h10"></path><path d="M 176.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">StatementsList</span> = <a class="ebnf-non-terminal" href="#Statement">Statement</a> , { <span class="ebnf-terminal">";"</span> , <a class="ebnf-non-terminal" href="#Statement">Statement</a> } <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>StatementsList</strong>:<p>
+<ul>
+<li><a href="#Block">Block</a></li>
+</ul>
+  <p><strong>StatementsList</strong> is referencing:<p>
+<ul>
+<li><a href="#Statement">Statement</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Statement">Statement</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="267.5" style="max-height: 182px;" viewBox="0 0 267.5 182"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M227.5 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M207.5 31h0"></path><rect x="60" y="20" width="147.5" height="22"></rect><a xlink:href="#AssignStatement"><text x="133.75" y="35">AssignStatement</text></a></g><path d="M207.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h17"></path><path d="M190.5 61h17"></path><rect x="77" y="50" width="113.5" height="22"></rect><a xlink:href="#InStatement"><text x="133.75" y="65">InStatement</text></a></g><path d="M207.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 91h12.75"></path><path d="M194.75 91h12.75"></path><rect x="72.75" y="80" width="122" height="22"></rect><a xlink:href="#OutStatement"><text x="133.75" y="95">OutStatement</text></a></g><path d="M207.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 121h4.25"></path><path d="M203.25 121h4.25"></path><rect x="64.25" y="110" width="139" height="22"></rect><a xlink:href="#WhileStatement"><text x="133.75" y="125">WhileStatement</text></a></g><path d="M207.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 151h17"></path><path d="M190.5 151h17"></path><rect x="77" y="140" width="113.5" height="22"></rect><a xlink:href="#IfStatement"><text x="133.75" y="155">IfStatement</text></a></g><path d="M207.5 151a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path></g><path d="M 227.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Statement</span>
+  = <a class="ebnf-non-terminal" href="#AssignStatement">AssignStatement</a>
+  | <a class="ebnf-non-terminal" href="#InStatement">InStatement</a>
+  | <a class="ebnf-non-terminal" href="#OutStatement">OutStatement</a>
+  | <a class="ebnf-non-terminal" href="#WhileStatement">WhileStatement</a>
+  | <a class="ebnf-non-terminal" href="#IfStatement">IfStatement</a>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Statement</strong>:<p>
+<ul>
+<li><a href="#StatementsList">StatementsList</a></li>
+</ul>
+  <p><strong>Statement</strong> is referencing:<p>
+<ul>
+<li><a href="#AssignStatement">AssignStatement</a></li><li><a href="#InStatement">InStatement</a></li><li><a href="#OutStatement">OutStatement</a></li><li><a href="#WhileStatement">WhileStatement</a></li><li><a href="#IfStatement">IfStatement</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="AssignStatement">AssignStatement</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="482.5" style="max-height: 110px;" viewBox="0 0 482.5 110"><g transform="translate(.5 .5)"><g><path d="M20 29v20m0 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M50 39h10"></path><g><path d="M60 39h10"></path><path d="M412.5 39h10"></path><g><path d="M70 39h0"></path><path d="M155.5 39h0"></path><path d="M70 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M90 19h45.5"></path></g><path d="M135.5 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M70 39h20"></path><g class="terminal"><path d="M90 39h0"></path><path d="M135.5 39h0"></path><rect x="90" y="28" width="45.5" height="22" rx="10" ry="10"></rect><text x="112.75" y="43">var</text></g><path d="M135.5 39h20"></path></g><path d="M155.5 39h10"></path><g class="non-terminal"><path d="M165.5 39h0"></path><path d="M304.5 39h0"></path><rect x="165.5" y="28" width="139" height="22"></rect><a xlink:href="#VarDeclaration"><text x="235" y="43">VarDeclaration</text></a></g><path d="M304.5 39h10"></path><path d="M314.5 39h10"></path><g class="non-terminal"><path d="M324.5 39h0"></path><path d="M412.5 39h0"></path><rect x="324.5" y="28" width="88" height="22"></rect><a xlink:href="#AssignOp"><text x="368.5" y="43">AssignOp</text></a></g></g><path d="M422.5 39a10 10 0 0 1 10 10v0a10 10 0 0 1 -10 10h-362.5a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M60 79h128.75"></path><path d="M293.75 79h128.75"></path><g class="non-terminal"><path d="M188.75 79h0"></path><path d="M293.75 79h0"></path><rect x="188.75" y="68" width="105" height="22"></rect><a xlink:href="#Expression"><text x="241.25" y="83">Expression</text></a></g></g><path d="M422.5 79h10"></path><path d="M432.5 79h0"></path></g><path d="M432.5 79h10"></path><path d="M 442.5 79 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">AssignStatement</span> = [ <span class="ebnf-terminal">"var"</span> ] , <a class="ebnf-non-terminal" href="#VarDeclaration">VarDeclaration</a> ,
+  <a class="ebnf-non-terminal" href="#AssignOp">AssignOp</a> , <a class="ebnf-non-terminal" href="#Expression">Expression</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>AssignStatement</strong>:<p>
+<ul>
+<li><a href="#Statement">Statement</a></li>
+</ul>
+  <p><strong>AssignStatement</strong> is referencing:<p>
+<ul>
+<li><a href="#VarDeclaration">VarDeclaration</a></li><li><a href="#AssignOp">AssignOp</a></li><li><a href="#Expression">Expression</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="InStatement">InStatement</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="452.5" style="max-height: 102px;" viewBox="0 0 452.5 102"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M50 31h10"></path><g><path d="M60 31h10"></path><path d="M382.5 31h10"></path><g class="terminal"><path d="M70 31h0"></path><path d="M115.5 31h0"></path><rect x="70" y="20" width="45.5" height="22" rx="10" ry="10"></rect><text x="92.75" y="35">var</text></g><path d="M115.5 31h10"></path><path d="M125.5 31h10"></path><g class="non-terminal"><path d="M135.5 31h0"></path><path d="M274.5 31h0"></path><rect x="135.5" y="20" width="139" height="22"></rect><a xlink:href="#VarDeclaration"><text x="205" y="35">VarDeclaration</text></a></g><path d="M274.5 31h10"></path><path d="M284.5 31h10"></path><g class="non-terminal"><path d="M294.5 31h0"></path><path d="M382.5 31h0"></path><rect x="294.5" y="20" width="88" height="22"></rect><a xlink:href="#AssignOp"><text x="338.5" y="35">AssignOp</text></a></g></g><path d="M392.5 31a10 10 0 0 1 10 10v0a10 10 0 0 1 -10 10h-332.5a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M60 71h82.25"></path><path d="M310.25 71h82.25"></path><g class="terminal"><path d="M142.25 71h0"></path><path d="M213.25 71h0"></path><rect x="142.25" y="60" width="71" height="22" rx="10" ry="10"></rect><text x="177.75" y="75">readln</text></g><path d="M213.25 71h10"></path><path d="M223.25 71h10"></path><g class="terminal"><path d="M233.25 71h0"></path><path d="M261.75 71h0"></path><rect x="233.25" y="60" width="28.5" height="22" rx="10" ry="10"></rect><text x="247.5" y="75">(</text></g><path d="M261.75 71h10"></path><path d="M271.75 71h10"></path><g class="terminal"><path d="M281.75 71h0"></path><path d="M310.25 71h0"></path><rect x="281.75" y="60" width="28.5" height="22" rx="10" ry="10"></rect><text x="296" y="75">)</text></g></g><path d="M392.5 71h10"></path><path d="M402.5 71h0"></path></g><path d="M402.5 71h10"></path><path d="M 412.5 71 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">InStatement</span> = <span class="ebnf-terminal">"var"</span> , <a class="ebnf-non-terminal" href="#VarDeclaration">VarDeclaration</a> , <a class="ebnf-non-terminal" href="#AssignOp">AssignOp</a> ,
+  <span class="ebnf-terminal">"readln"</span> , <span class="ebnf-terminal">"("</span> , <span class="ebnf-terminal">")"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>InStatement</strong>:<p>
+<ul>
+<li><a href="#Statement">Statement</a></li>
+</ul>
+  <p><strong>InStatement</strong> is referencing:<p>
+<ul>
+<li><a href="#VarDeclaration">VarDeclaration</a></li><li><a href="#AssignOp">AssignOp</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="OutStatement">OutStatement</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="384.5" style="max-height: 62px;" viewBox="0 0 384.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M334.5 31h0"></path><g class="terminal"><path d="M50 31h0"></path><path d="M112.5 31h0"></path><rect x="50" y="20" width="62.5" height="22" rx="10" ry="10"></rect><text x="81.25" y="35">print</text></g><path d="M112.5 31h10"></path><path d="M122.5 31h10"></path><g class="terminal"><path d="M132.5 31h0"></path><path d="M161 31h0"></path><rect x="132.5" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="146.75" y="35">(</text></g><path d="M161 31h10"></path><path d="M171 31h10"></path><g class="non-terminal"><path d="M181 31h0"></path><path d="M286 31h0"></path><rect x="181" y="20" width="105" height="22"></rect><a xlink:href="#Expression"><text x="233.5" y="35">Expression</text></a></g><path d="M286 31h10"></path><path d="M296 31h10"></path><g class="terminal"><path d="M306 31h0"></path><path d="M334.5 31h0"></path><rect x="306" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="320.25" y="35">)</text></g></g><path d="M334.5 31h10"></path><path d="M 344.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">OutStatement</span> = <span class="ebnf-terminal">"print"</span> , <span class="ebnf-terminal">"("</span> , <a class="ebnf-non-terminal" href="#Expression">Expression</a> , <span class="ebnf-terminal">")"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>OutStatement</strong>:<p>
+<ul>
+<li><a href="#Statement">Statement</a></li>
+</ul>
+  <p><strong>OutStatement</strong> is referencing:<p>
+<ul>
+<li><a href="#Expression">Expression</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="WhileStatement">WhileStatement</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="467" style="max-height: 62px;" viewBox="0 0 467 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M417 31h0"></path><g class="terminal"><path d="M50 31h0"></path><path d="M112.5 31h0"></path><rect x="50" y="20" width="62.5" height="22" rx="10" ry="10"></rect><text x="81.25" y="35">while</text></g><path d="M112.5 31h10"></path><path d="M122.5 31h10"></path><g class="terminal"><path d="M132.5 31h0"></path><path d="M161 31h0"></path><rect x="132.5" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="146.75" y="35">(</text></g><path d="M161 31h10"></path><path d="M171 31h10"></path><g class="non-terminal"><path d="M181 31h0"></path><path d="M286 31h0"></path><rect x="181" y="20" width="105" height="22"></rect><a xlink:href="#Expression"><text x="233.5" y="35">Expression</text></a></g><path d="M286 31h10"></path><path d="M296 31h10"></path><g class="terminal"><path d="M306 31h0"></path><path d="M334.5 31h0"></path><rect x="306" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="320.25" y="35">)</text></g><path d="M334.5 31h10"></path><path d="M344.5 31h10"></path><g class="non-terminal"><path d="M354.5 31h0"></path><path d="M417 31h0"></path><rect x="354.5" y="20" width="62.5" height="22"></rect><a xlink:href="#Block"><text x="385.75" y="35">Block</text></a></g></g><path d="M417 31h10"></path><path d="M 427 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">WhileStatement</span> = <span class="ebnf-terminal">"while"</span> , <span class="ebnf-terminal">"("</span> , <a class="ebnf-non-terminal" href="#Expression">Expression</a> , <span class="ebnf-terminal">")"</span> , <a class="ebnf-non-terminal" href="#Block">Block</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>WhileStatement</strong>:<p>
+<ul>
+<li><a href="#Statement">Statement</a></li>
+</ul>
+  <p><strong>WhileStatement</strong> is referencing:<p>
+<ul>
+<li><a href="#Expression">Expression</a></li><li><a href="#Block">Block</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="IfStatement">IfStatement</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="481.5" style="max-height: 139px;" viewBox="0 0 481.5 139"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M50 31h10"></path><g><path d="M60 31h10"></path><path d="M411.5 31h10"></path><g class="terminal"><path d="M70 31h0"></path><path d="M107 31h0"></path><rect x="70" y="20" width="37" height="22" rx="10" ry="10"></rect><text x="88.5" y="35">if</text></g><path d="M107 31h10"></path><path d="M117 31h10"></path><g class="terminal"><path d="M127 31h0"></path><path d="M155.5 31h0"></path><rect x="127" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="141.25" y="35">(</text></g><path d="M155.5 31h10"></path><path d="M165.5 31h10"></path><g class="non-terminal"><path d="M175.5 31h0"></path><path d="M280.5 31h0"></path><rect x="175.5" y="20" width="105" height="22"></rect><a xlink:href="#Expression"><text x="228" y="35">Expression</text></a></g><path d="M280.5 31h10"></path><path d="M290.5 31h10"></path><g class="terminal"><path d="M300.5 31h0"></path><path d="M329 31h0"></path><rect x="300.5" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="314.75" y="35">)</text></g><path d="M329 31h10"></path><path d="M339 31h10"></path><g class="non-terminal"><path d="M349 31h0"></path><path d="M411.5 31h0"></path><rect x="349" y="20" width="62.5" height="22"></rect><a xlink:href="#Block"><text x="380.25" y="35">Block</text></a></g></g><path d="M421.5 31a10 10 0 0 1 10 10v0a10 10 0 0 1 -10 10h-361.5a10 10 0 0 0 -10 10v7a10 10 0 0 0 10 10"></path><g><path d="M60 78h52"></path><path d="M369.5 78h52"></path><g><path d="M112 78h0"></path><path d="M369.5 78h0"></path><path d="M112 78a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M132 58h217.5"></path></g><path d="M349.5 58a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M112 78h20"></path><g><path d="M132 78h0"></path><path d="M349.5 78h0"></path><g class="terminal"><path d="M132 78h0"></path><path d="M186 78h0"></path><rect x="132" y="67" width="54" height="22" rx="10" ry="10"></rect><text x="159" y="82">else</text></g><path d="M186 78h10"></path><g><path d="M196 78h0"></path><path d="M349.5 78h0"></path><path d="M196 78h20"></path><g class="non-terminal"><path d="M216 78h0"></path><path d="M329.5 78h0"></path><rect x="216" y="67" width="113.5" height="22"></rect><a xlink:href="#IfStatement"><text x="272.75" y="82">IfStatement</text></a></g><path d="M329.5 78h20"></path><path d="M196 78a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M216 108h25.5"></path><path d="M304 108h25.5"></path><rect x="241.5" y="97" width="62.5" height="22"></rect><a xlink:href="#Block"><text x="272.75" y="112">Block</text></a></g><path d="M329.5 108a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g></g><path d="M349.5 78h20"></path></g></g><path d="M421.5 78h10"></path><path d="M431.5 78h0"></path></g><path d="M431.5 78h10"></path><path d="M 441.5 78 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">IfStatement</span> = <span class="ebnf-terminal">"if"</span> , <span class="ebnf-terminal">"("</span> , <a class="ebnf-non-terminal" href="#Expression">Expression</a> , <span class="ebnf-terminal">")"</span> , <a class="ebnf-non-terminal" href="#Block">Block</a> ,
+  [ <span class="ebnf-terminal">"else"</span> , ( <a class="ebnf-non-terminal" href="#IfStatement">IfStatement</a> | <a class="ebnf-non-terminal" href="#Block">Block</a> ) ] <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>IfStatement</strong>:<p>
+<ul>
+<li><a href="#Statement">Statement</a></li><li><a href="#IfStatement">IfStatement</a></li>
+</ul>
+  <p><strong>IfStatement</strong> is referencing:<p>
+<ul>
+<li><a href="#Expression">Expression</a></li><li><a href="#Block">Block</a></li><li><a href="#IfStatement">IfStatement</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="PackageId">PackageId</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="157" style="max-height: 92px;" viewBox="0 0 157 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M107 31h0"></path><path d="M50 31h10"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M97 31h0"></path><rect x="60" y="20" width="37" height="22"></rect><a xlink:href="#Id"><text x="78.5" y="35">Id</text></a></g><path d="M97 31h10"></path><path d="M60 31a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h4.25"></path><path d="M92.75 61h4.25"></path><rect x="64.25" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="78.5" y="65">.</text></g><path d="M97 61a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path></g><path d="M107 31h10"></path><path d="M 117 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">PackageId</span> = <a class="ebnf-non-terminal" href="#Id">Id</a> , { <span class="ebnf-terminal">"."</span> , <a class="ebnf-non-terminal" href="#Id">Id</a> } <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>PackageId</strong>:<p>
+<ul>
+<li><a href="#PackageDeclaration">PackageDeclaration</a></li>
+</ul>
+  <p><strong>PackageId</strong> is referencing:<p>
+<ul>
+<li><a href="#Id">Id</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="PackageDeclaration">PackageDeclaration</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="344.5" style="max-height: 62px;" viewBox="0 0 344.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M294.5 31h0"></path><g class="terminal"><path d="M50 31h0"></path><path d="M129.5 31h0"></path><rect x="50" y="20" width="79.5" height="22" rx="10" ry="10"></rect><text x="89.75" y="35">package</text></g><path d="M129.5 31h10"></path><path d="M139.5 31h10"></path><g class="non-terminal"><path d="M149.5 31h0"></path><path d="M246 31h0"></path><rect x="149.5" y="20" width="96.5" height="22"></rect><a xlink:href="#PackageId"><text x="197.75" y="35">PackageId</text></a></g><path d="M246 31h10"></path><path d="M256 31h10"></path><g class="terminal"><path d="M266 31h0"></path><path d="M294.5 31h0"></path><rect x="266" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="280.25" y="35">;</text></g></g><path d="M294.5 31h10"></path><path d="M 304.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">PackageDeclaration</span> = <span class="ebnf-terminal">"package"</span> , <a class="ebnf-non-terminal" href="#PackageId">PackageId</a> , <span class="ebnf-terminal">";"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>PackageDeclaration</strong>:<p>
+<ul>
+<li><a href="#Grammar">Grammar</a></li>
+</ul>
+  <p><strong>PackageDeclaration</strong> is referencing:<p>
+<ul>
+<li><a href="#PackageId">PackageId</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="EntryPointFunName">EntryPointFunName</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="154" style="max-height: 62px;" viewBox="0 0 154 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="terminal"><path d="M50 31h0"></path><path d="M104 31h0"></path><rect x="50" y="20" width="54" height="22" rx="10" ry="10"></rect><text x="77" y="35">main</text></g><path d="M104 31h10"></path><path d="M 114 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">EntryPointFunName</span> = <span class="ebnf-terminal">"main"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>EntryPointFunName</strong>:<p>
+<ul>
+<li><a href="#EntryPoint">EntryPoint</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="EntryPoint">EntryPoint</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="731" style="max-height: 70px;" viewBox="0 0 731 70"><g transform="translate(.5 .5)"><g><path d="M20 29v20m0 -10h20"></path></g><path d="M40 39h10"></path><g><path d="M50 39h0"></path><path d="M681 39h0"></path><g class="terminal"><path d="M50 39h0"></path><path d="M95.5 39h0"></path><rect x="50" y="28" width="45.5" height="22" rx="10" ry="10"></rect><text x="72.75" y="43">fun</text></g><path d="M95.5 39h10"></path><path d="M105.5 39h10"></path><g class="non-terminal"><path d="M115.5 39h0"></path><path d="M280 39h0"></path><rect x="115.5" y="28" width="164.5" height="22"></rect><a xlink:href="#EntryPointFunName"><text x="197.75" y="43">EntryPointFunName</text></a></g><path d="M280 39h10"></path><path d="M290 39h10"></path><g class="terminal"><path d="M300 39h0"></path><path d="M328.5 39h0"></path><rect x="300" y="28" width="28.5" height="22" rx="10" ry="10"></rect><text x="314.25" y="43">(</text></g><path d="M328.5 39h10"></path><g><path d="M338.5 39h0"></path><path d="M560 39h0"></path><path d="M338.5 39a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M358.5 19h181.5"></path></g><path d="M540 19a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M338.5 39h20"></path><g class="non-terminal"><path d="M358.5 39h0"></path><path d="M540 39h0"></path><rect x="358.5" y="28" width="181.5" height="22"></rect><a xlink:href="#VarDeclarationsList"><text x="449.25" y="43">VarDeclarationsList</text></a></g><path d="M540 39h20"></path></g><path d="M560 39h10"></path><g class="terminal"><path d="M570 39h0"></path><path d="M598.5 39h0"></path><rect x="570" y="28" width="28.5" height="22" rx="10" ry="10"></rect><text x="584.25" y="43">)</text></g><path d="M598.5 39h10"></path><path d="M608.5 39h10"></path><g class="non-terminal"><path d="M618.5 39h0"></path><path d="M681 39h0"></path><rect x="618.5" y="28" width="62.5" height="22"></rect><a xlink:href="#Block"><text x="649.75" y="43">Block</text></a></g></g><path d="M681 39h10"></path><path d="M 691 39 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">EntryPoint</span> = <span class="ebnf-terminal">"fun"</span> , <a class="ebnf-non-terminal" href="#EntryPointFunName">EntryPointFunName</a> , <span class="ebnf-terminal">"("</span> ,
+  [ <a class="ebnf-non-terminal" href="#VarDeclarationsList">VarDeclarationsList</a> ] , <span class="ebnf-terminal">")"</span> , <a class="ebnf-non-terminal" href="#Block">Block</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>EntryPoint</strong>:<p>
+<ul>
+<li><a href="#Grammar">Grammar</a></li>
+</ul>
+  <p><strong>EntryPoint</strong> is referencing:<p>
+<ul>
+<li><a href="#EntryPointFunName">EntryPointFunName</a></li><li><a href="#VarDeclarationsList">VarDeclarationsList</a></li><li><a href="#Block">Block</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Grammar">Grammar</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="1397.5" style="max-height: 1897px;" viewBox="0 0 1397.5 1897"><g transform="translate(.5 .5)"><g><path d="M20 119v20m0 -10h20"></path></g><path d="M40 129h10"></path><g><path d="M50 129h0"></path><path d="M50 129h10"></path><g><path d="M60 129h398.75"></path><path d="M938.75 129h398.75"></path><g><path d="M458.75 129h0"></path><path d="M938.75 129h0"></path><rect x="458.75" y="42" width="480" height="190" rx="10" ry="10" class="group-box"></rect><g><path d="M458.75 129h10"></path><path d="M928.75 129h10"></path><g class="terminal"><path d="M468.75 129h0"></path><path d="M548.25 129h0"></path><rect x="468.75" y="118" width="79.5" height="22" rx="10" ry="10"></rect><text x="508.5" y="133">package</text></g><path d="M548.25 129h10"></path><path d="M558.25 129h10"></path><g><path d="M568.25 129h0"></path><path d="M880.25 129h0"></path><rect x="568.25" y="72" width="312" height="152" rx="10" ry="10" class="group-box"></rect><g><path d="M568.25 129h10"></path><path d="M870.25 129h10"></path><path d="M578.25 129h10"></path><g><path d="M588.25 129h0"></path><path d="M860.25 129h0"></path><rect x="588.25" y="102" width="272" height="84" rx="10" ry="10" class="group-box"></rect><g><path d="M588.25 129h10"></path><path d="M850.25 129h10"></path><g class="non-terminal"><path d="M598.25 129h0"></path><path d="M669.25 129h0"></path><rect x="598.25" y="118" width="71" height="22"></rect><a xlink:href="#Letter"><text x="633.75" y="133">Letter</text></a></g><path d="M669.25 129h10"></path><g><path d="M679.25 129h0"></path><path d="M850.25 129h0"></path><path d="M679.25 129a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M699.25 109h131"></path></g><path d="M830.25 109a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M679.25 129h20"></path><g><path d="M699.25 129h0"></path><path d="M830.25 129h0"></path><path d="M699.25 129h10"></path><g><path d="M709.25 129h0"></path><path d="M820.25 129h0"></path><path d="M709.25 129h20"></path><g class="non-terminal"><path d="M729.25 129h0"></path><path d="M800.25 129h0"></path><rect x="729.25" y="118" width="71" height="22"></rect><a xlink:href="#Letter"><text x="764.75" y="133">Letter</text></a></g><path d="M800.25 129h20"></path><path d="M709.25 129a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M729.25 159h4.25"></path><path d="M796 159h4.25"></path><rect x="733.5" y="148" width="62.5" height="22"></rect><a xlink:href="#Digit"><text x="764.75" y="163">Digit</text></a></g><path d="M800.25 159a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M820.25 129h10"></path><path d="M709.25 129a10 10 0 0 0 -10 10v29a10 10 0 0 0 10 10"></path><g><path d="M709.25 178h111"></path></g><path d="M820.25 178a10 10 0 0 0 10 -10v-29a10 10 0 0 0 -10 -10"></path></g><path d="M830.25 129h20"></path></g></g><g><path d="M588.25 91h0"></path><path d="M612.25 91h0"></path><a xlink:href="#Id"><text x="600.25" y="96" class="comment">Id</text></a></g></g><path d="M860.25 129h10"></path><path d="M588.25 129a10 10 0 0 0 -10 10v56a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M588.25 205h121.75"></path><path d="M738.5 205h121.75"></path><rect x="710" y="194" width="28.5" height="22" rx="10" ry="10"></rect><text x="724.25" y="209">.</text></g><path d="M860.25 205a10 10 0 0 0 10 -10v-56a10 10 0 0 0 -10 -10"></path></g><g><path d="M568.25 61h0"></path><path d="M641.25 61h0"></path><a xlink:href="#PackageId"><text x="604.75" y="66" class="comment">PackageId</text></a></g></g><path d="M880.25 129h10"></path><path d="M890.25 129h10"></path><g class="terminal"><path d="M900.25 129h0"></path><path d="M928.75 129h0"></path><rect x="900.25" y="118" width="28.5" height="22" rx="10" ry="10"></rect><text x="914.5" y="133">;</text></g></g><g><path d="M458.75 31h0"></path><path d="M594.75 31h0"></path><a xlink:href="#PackageDeclaration"><text x="526.75" y="36" class="comment">PackageDeclaration</text></a></g></g></g><path d="M1337.5 129a10 10 0 0 1 10 10v91a10 10 0 0 1 -10 10h-1277.5a10 10 0 0 0 -10 10v135a10 10 0 0 0 10 10"></path><g><path d="M60 395h10"></path><path d="M1327.5 920h10"></path><g><path d="M70 395h0"></path><path d="M1327.5 920h0"></path><rect x="70" y="270" width="1257.5" height="1607" rx="10" ry="10" class="group-box"></rect><g><path d="M70 395h10"></path><path d="M80 395h10"></path><g><path d="M90 395h327.5"></path><path d="M980 395h327.5"></path><g class="terminal"><path d="M417.5 395h0"></path><path d="M463 395h0"></path><rect x="417.5" y="384" width="45.5" height="22" rx="10" ry="10"></rect><text x="440.25" y="399">fun</text></g><path d="M463 395h10"></path><path d="M473 395h10"></path><g><path d="M483 395h0"></path><path d="M612 395h0"></path><rect x="483" y="376" width="129" height="38" rx="10" ry="10" class="group-box"></rect><g class="terminal"><path d="M483 395h37.5"></path><path d="M574.5 395h37.5"></path><rect x="520.5" y="384" width="54" height="22" rx="10" ry="10"></rect><text x="547.5" y="399">main</text></g><g><path d="M483 365h0"></path><path d="M612 365h0"></path><a xlink:href="#EntryPointFunName"><text x="547.5" y="370" class="comment">EntryPointFunName</text></a></g></g><path d="M612 395h10"></path><path d="M622 395h10"></path><g class="terminal"><path d="M632 395h0"></path><path d="M660.5 395h0"></path><rect x="632" y="384" width="28.5" height="22" rx="10" ry="10"></rect><text x="646.25" y="399">(</text></g><path d="M660.5 395h10"></path><g><path d="M670.5 395h0"></path><path d="M980 395h0"></path><path d="M670.5 395a10 10 0 0 0 10 -10v-97a10 10 0 0 1 10 -10"></path><g><path d="M690.5 278h269.5"></path></g><path d="M960 278a10 10 0 0 1 10 10v97a10 10 0 0 0 10 10"></path><path d="M670.5 395h20"></path><g><path d="M690.5 395h0"></path><path d="M960 395h0"></path><rect x="690.5" y="308" width="269.5" height="152" rx="10" ry="10" class="group-box"></rect><g><path d="M690.5 395h10"></path><path d="M950 395h10"></path><path d="M700.5 395h10"></path><g><path d="M710.5 395h0"></path><path d="M940 395h0"></path><rect x="710.5" y="338" width="229.5" height="84" rx="10" ry="10" class="group-box"></rect><g><path d="M710.5 395h10"></path><path d="M930 395h10"></path><g class="non-terminal"><path d="M720.5 395h0"></path><path d="M757.5 395h0"></path><rect x="720.5" y="384" width="37" height="22"></rect><a xlink:href="#Id"><text x="739" y="399">Id</text></a></g><path d="M757.5 395h10"></path><g><path d="M767.5 395h0"></path><path d="M930 395h0"></path><path d="M767.5 395a10 10 0 0 0 10 -10v-29a10 10 0 0 1 10 -10"></path><g><path d="M787.5 346h122.5"></path></g><path d="M910 346a10 10 0 0 1 10 10v29a10 10 0 0 0 10 10"></path><path d="M767.5 395h20"></path><g><path d="M787.5 395h0"></path><path d="M910 395h0"></path><rect x="787.5" y="376" width="122.5" height="38" rx="10" ry="10" class="group-box"></rect><g><path d="M787.5 395h10"></path><path d="M900 395h10"></path><g class="terminal"><path d="M797.5 395h0"></path><path d="M826 395h0"></path><rect x="797.5" y="384" width="28.5" height="22" rx="10" ry="10"></rect><text x="811.75" y="399">:</text></g><path d="M826 395h10"></path><path d="M836 395h10"></path><g class="non-terminal"><path d="M846 395h0"></path><path d="M900 395h0"></path><rect x="846" y="384" width="54" height="22"></rect><a xlink:href="#Type"><text x="873" y="399">Type</text></a></g></g><g><path d="M787.5 365h0"></path><path d="M909.5 365h0"></path><a xlink:href="#VarTypeSpecifier"><text x="848.5" y="370" class="comment">VarTypeSpecifier</text></a></g></g><path d="M910 395h20"></path></g></g><g><path d="M710.5 327h0"></path><path d="M818.5 327h0"></path><a xlink:href="#VarDeclaration"><text x="764.5" y="332" class="comment">VarDeclaration</text></a></g></g><path d="M940 395h10"></path><path d="M710.5 395a10 10 0 0 0 -10 10v26a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M710.5 441h100.5"></path><path d="M839.5 441h100.5"></path><rect x="811" y="430" width="28.5" height="22" rx="10" ry="10"></rect><text x="825.25" y="445">,</text></g><path d="M940 441a10 10 0 0 0 10 -10v-26a10 10 0 0 0 -10 -10"></path></g><g><path d="M690.5 297h0"></path><path d="M833.5 297h0"></path><a xlink:href="#VarDeclarationsList"><text x="762" y="302" class="comment">VarDeclarationsList</text></a></g></g><path d="M960 395h20"></path></g></g><path d="M1307.5 395a10 10 0 0 1 10 10v53a10 10 0 0 1 -10 10h-1217.5a10 10 0 0 0 -10 10v157a10 10 0 0 0 10 10"></path><g><path d="M90 645h10"></path><path d="M1297.5 920h10"></path><g class="terminal"><path d="M100 645h0"></path><path d="M128.5 645h0"></path><rect x="100" y="634" width="28.5" height="22" rx="10" ry="10"></rect><text x="114.25" y="649">)</text></g><path d="M128.5 645h10"></path><path d="M138.5 645h10"></path><g><path d="M148.5 645h0"></path><path d="M1297.5 920h0"></path><rect x="148.5" y="498" width="1149" height="1371" rx="10" ry="10" class="group-box"></rect><g><path d="M148.5 645h10"></path><path d="M1287.5 920h10"></path><g class="terminal"><path d="M158.5 645h0"></path><path d="M187 645h0"></path><rect x="158.5" y="634" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="649">{</text></g><path d="M187 645h10"></path><g><path d="M197 645h0"></path><path d="M1249 920h0"></path><path d="M197 645a10 10 0 0 0 10 -10v-119a10 10 0 0 1 10 -10"></path><g><path d="M217 506h1012"></path></g><path d="M1229 506a10 10 0 0 1 10 10v394a10 10 0 0 0 10 10"></path><path d="M197 645h20"></path><g><path d="M217 645h0"></path><path d="M1229 920h0"></path><rect x="217" y="536" width="1012" height="1325" rx="10" ry="10" class="group-box"></rect><g><path d="M217 645h10"></path><path d="M1219 920h10"></path><path d="M227 645h10"></path><g><path d="M237 645h0"></path><path d="M1209 920h0"></path><rect x="237" y="566" width="972" height="1257" rx="10" ry="10" class="group-box"></rect><g><path d="M237 645h0"></path><path d="M1209 920h0"></path><path d="M237 645h20"></path><g><path d="M257 645h0"></path><path d="M1189 920h0"></path><rect x="257" y="596" width="932" height="830" rx="10" ry="10" class="group-box"></rect><g><path d="M257 645h10"></path><path d="M267 645h10"></path><g><path d="M277 645h285.75"></path><path d="M883.25 645h285.75"></path><g><path d="M562.75 645h0"></path><path d="M648.25 645h0"></path><path d="M562.75 645a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M582.75 625h45.5"></path></g><path d="M628.25 625a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M562.75 645h20"></path><g class="terminal"><path d="M582.75 645h0"></path><path d="M628.25 645h0"></path><rect x="582.75" y="634" width="45.5" height="22" rx="10" ry="10"></rect><text x="605.5" y="649">var</text></g><path d="M628.25 645h20"></path></g><path d="M648.25 645h10"></path><g class="non-terminal"><path d="M658.25 645h0"></path><path d="M797.25 645h0"></path><rect x="658.25" y="634" width="139" height="22"></rect><a xlink:href="#VarDeclaration"><text x="727.75" y="649">VarDeclaration</text></a></g><path d="M797.25 645h10"></path><path d="M807.25 645h10"></path><g><path d="M817.25 645h0"></path><path d="M883.25 645h0"></path><rect x="817.25" y="626" width="66" height="38" rx="10" ry="10" class="group-box"></rect><g class="terminal"><path d="M817.25 645h18.75"></path><path d="M864.5 645h18.75"></path><rect x="836" y="634" width="28.5" height="22" rx="10" ry="10"></rect><text x="850.25" y="649">=</text></g><g><path d="M817.25 615h0"></path><path d="M883.25 615h0"></path><a xlink:href="#AssignOp"><text x="850.25" y="620" class="comment">AssignOp</text></a></g></g></g><path d="M1169 645a10 10 0 0 1 10 10v7a10 10 0 0 1 -10 10h-892a10 10 0 0 0 -10 10v50a10 10 0 0 0 10 10"></path><g><path d="M277 742h10"></path><path d="M1159 920h10"></path><g><path d="M287 742h0"></path><path d="M1159 920h0"></path><rect x="287" y="702" width="872" height="716" rx="10" ry="10" class="group-box"></rect><g><path d="M287 742h0"></path><path d="M1159 920h0"></path><path d="M287 742h20"></path><g><path d="M307 742h0"></path><path d="M1139 920h0"></path><rect x="307" y="732" width="832" height="580" rx="10" ry="10" class="group-box"></rect><g><path d="M307 742h10"></path><path d="M317 742h10"></path><g><path d="M327 742h258.75"></path><path d="M860.25 742h258.75"></path><g><path d="M585.75 742h0"></path><path d="M860.25 742h0"></path><path d="M585.75 742h20"></path><g><path d="M605.75 742h234.5"></path></g><path d="M840.25 742h20"></path><path d="M585.75 742a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M605.75 762h90.25"></path><path d="M750 762h90.25"></path><rect x="696" y="751" width="54" height="22"></rect><a xlink:href="#Sign"><text x="723" y="766">Sign</text></a></g><path d="M840.25 762a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><path d="M585.75 742a10 10 0 0 1 10 10v30a10 10 0 0 0 10 10"></path><g><path d="M605.75 792h0"></path><path d="M840.25 792h0"></path><g class="non-terminal"><path d="M605.75 792h0"></path><path d="M761.75 792h0"></path><rect x="605.75" y="781" width="156" height="22"></rect><a xlink:href="#ArithmExpression"><text x="683.75" y="796">ArithmExpression</text></a></g><path d="M761.75 792h10"></path><g><path d="M771.75 792h0"></path><path d="M840.25 792h0"></path><path d="M771.75 792h20"></path><g class="terminal"><path d="M791.75 792h0"></path><path d="M820.25 792h0"></path><rect x="791.75" y="781" width="28.5" height="22" rx="10" ry="10"></rect><text x="806" y="796">+</text></g><path d="M820.25 792h20"></path><path d="M771.75 792a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M791.75 822h0"></path><path d="M820.25 822h0"></path><rect x="791.75" y="811" width="28.5" height="22" rx="10" ry="10"></rect><text x="806" y="826">-</text></g><path d="M820.25 822a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g></g><path d="M840.25 792a10 10 0 0 0 10 -10v-30a10 10 0 0 1 10 -10"></path></g></g><path d="M1119 742a10 10 0 0 1 10 10v79a10 10 0 0 1 -10 10h-792a10 10 0 0 0 -10 10v59a10 10 0 0 0 10 10"></path><g><path d="M327 920h10"></path><path d="M1109 920h10"></path><g><path d="M337 920h0"></path><path d="M1109 920h0"></path><rect x="337" y="871" width="772" height="433" rx="10" ry="10" class="group-box"></rect><g><path d="M337 920h10"></path><path d="M1099 920h10"></path><g><path d="M347 920h0"></path><path d="M519.5 920h0"></path><path d="M347 920a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M367 900h132.5"></path></g><path d="M499.5 900a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M347 920h20"></path><g><path d="M367 920h0"></path><path d="M499.5 920h0"></path><g class="non-terminal"><path d="M367 920h0"></path><path d="M421 920h0"></path><rect x="367" y="909" width="54" height="22"></rect><a xlink:href="#Term"><text x="394" y="924">Term</text></a></g><path d="M421 920h10"></path><g><path d="M431 920h0"></path><path d="M499.5 920h0"></path><path d="M431 920h20"></path><g class="terminal"><path d="M451 920h0"></path><path d="M479.5 920h0"></path><rect x="451" y="909" width="28.5" height="22" rx="10" ry="10"></rect><text x="465.25" y="924">&#42;</text></g><path d="M479.5 920h20"></path><path d="M431 920a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M451 950h0"></path><path d="M479.5 950h0"></path><rect x="451" y="939" width="28.5" height="22" rx="10" ry="10"></rect><text x="465.25" y="954">/</text></g><path d="M479.5 950a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M431 920a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M451 980h0"></path><path d="M479.5 980h0"></path><rect x="451" y="969" width="28.5" height="22" rx="10" ry="10"></rect><text x="465.25" y="984">^</text></g><path d="M479.5 980a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g></g><path d="M499.5 920h20"></path></g><path d="M519.5 920h10"></path><g><path d="M529.5 920h0"></path><path d="M1099 920h0"></path><rect x="529.5" y="901" width="569.5" height="395" rx="10" ry="10" class="group-box"></rect><g><path d="M529.5 920h0"></path><path d="M1099 920h0"></path><path d="M529.5 920h20"></path><g class="non-terminal"><path d="M549.5 920h246.25"></path><path d="M832.75 920h246.25"></path><rect x="795.75" y="909" width="37" height="22"></rect><a xlink:href="#Id"><text x="814.25" y="924">Id</text></a></g><path d="M1079 920h20"></path><path d="M529.5 920a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g><path d="M549.5 1040h0"></path><path d="M1079 1040h0"></path><rect x="549.5" y="961" width="529.5" height="297" rx="10" ry="10" class="group-box"></rect><g><path d="M549.5 1040h0"></path><path d="M1079 1040h0"></path><path d="M549.5 1040h20"></path><g><path d="M569.5 1040h131.5"></path><path d="M927.5 1040h131.5"></path><rect x="701" y="991" width="226.5" height="85" rx="10" ry="10" class="group-box"></rect><g><path d="M701 1040h10"></path><path d="M917.5 1040h10"></path><g><path d="M711 1040h0"></path><path d="M805 1040h0"></path><path d="M711 1040a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M731 1020h54"></path></g><path d="M785 1020a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M711 1040h20"></path><g class="non-terminal"><path d="M731 1040h0"></path><path d="M785 1040h0"></path><rect x="731" y="1029" width="54" height="22"></rect><a xlink:href="#Sign"><text x="758" y="1044">Sign</text></a></g><path d="M785 1040h20"></path></g><path d="M805 1040h10"></path><g><path d="M815 1040h0"></path><path d="M917.5 1040h0"></path><rect x="815" y="1021" width="102.5" height="47" rx="10" ry="10" class="group-box"></rect><g><path d="M815 1040h10"></path><path d="M907.5 1040h10"></path><path d="M825 1040h10"></path><g class="non-terminal"><path d="M835 1040h0"></path><path d="M897.5 1040h0"></path><rect x="835" y="1029" width="62.5" height="22"></rect><a xlink:href="#Digit"><text x="866.25" y="1044">Digit</text></a></g><path d="M897.5 1040h10"></path><path d="M835 1040a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M835 1060h62.5"></path></g><path d="M897.5 1060a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><g><path d="M815 1010h0"></path><path d="M902 1010h0"></path><a xlink:href="#UnsignedInt"><text x="858.5" y="1015" class="comment">UnsignedInt</text></a></g></g></g><g><path d="M701 980h0"></path><path d="M781 980h0"></path><a xlink:href="#IntLiteral"><text x="741" y="985" class="comment">IntLiteral</text></a></g></g><path d="M1059 1040h20"></path><path d="M549.5 1040a10 10 0 0 1 10 10v95a10 10 0 0 0 10 10"></path><g><path d="M569.5 1155h0"></path><path d="M1059 1155h0"></path><rect x="569.5" y="1106" width="489.5" height="114" rx="10" ry="10" class="group-box"></rect><g><path d="M569.5 1155h10"></path><path d="M1049 1155h10"></path><g><path d="M579.5 1155h0"></path><path d="M673.5 1155h0"></path><path d="M579.5 1155a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M599.5 1135h54"></path></g><path d="M653.5 1135a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M579.5 1155h20"></path><g class="non-terminal"><path d="M599.5 1155h0"></path><path d="M653.5 1155h0"></path><rect x="599.5" y="1144" width="54" height="22"></rect><a xlink:href="#Sign"><text x="626.5" y="1159">Sign</text></a></g><path d="M653.5 1155h20"></path></g><path d="M673.5 1155h10"></path><g><path d="M683.5 1155h0"></path><path d="M1049 1155h0"></path><rect x="683.5" y="1136" width="365.5" height="76" rx="10" ry="10" class="group-box"></rect><g><path d="M683.5 1155h0"></path><path d="M1049 1155h0"></path><path d="M683.5 1155h20"></path><g><path d="M703.5 1155h81.75"></path><path d="M947.25 1155h81.75"></path><g class="terminal"><path d="M785.25 1155h0"></path><path d="M813.75 1155h0"></path><rect x="785.25" y="1144" width="28.5" height="22" rx="10" ry="10"></rect><text x="799.5" y="1159">.</text></g><path d="M813.75 1155h10"></path><path d="M823.75 1155h10"></path><g class="non-terminal"><path d="M833.75 1155h0"></path><path d="M947.25 1155h0"></path><rect x="833.75" y="1144" width="113.5" height="22"></rect><a xlink:href="#UnsignedInt"><text x="890.5" y="1159">UnsignedInt</text></a></g></g><path d="M1029 1155h20"></path><path d="M683.5 1155a10 10 0 0 1 10 10v18a10 10 0 0 0 10 10"></path><g><path d="M703.5 1193h0"></path><path d="M1029 1193h0"></path><g class="non-terminal"><path d="M703.5 1193h0"></path><path d="M817 1193h0"></path><rect x="703.5" y="1182" width="113.5" height="22"></rect><a xlink:href="#UnsignedInt"><text x="760.25" y="1197">UnsignedInt</text></a></g><path d="M817 1193h10"></path><path d="M827 1193h10"></path><g class="terminal"><path d="M837 1193h0"></path><path d="M865.5 1193h0"></path><rect x="837" y="1182" width="28.5" height="22" rx="10" ry="10"></rect><text x="851.25" y="1197">.</text></g><path d="M865.5 1193h10"></path><g><path d="M875.5 1193h0"></path><path d="M1029 1193h0"></path><path d="M875.5 1193a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M895.5 1173h113.5"></path></g><path d="M1009 1173a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M875.5 1193h20"></path><g class="non-terminal"><path d="M895.5 1193h0"></path><path d="M1009 1193h0"></path><rect x="895.5" y="1182" width="113.5" height="22"></rect><a xlink:href="#UnsignedInt"><text x="952.25" y="1197">UnsignedInt</text></a></g><path d="M1009 1193h20"></path></g></g><path d="M1029 1193a10 10 0 0 0 10 -10v-18a10 10 0 0 1 10 -10"></path></g><g><path d="M683.5 1125h0"></path><path d="M777.5 1125h0"></path><a xlink:href="#UnsignedReal"><text x="730.5" y="1130" class="comment">UnsignedReal</text></a></g></g></g><g><path d="M569.5 1095h0"></path><path d="M656.5 1095h0"></path><a xlink:href="#RealLiteral"><text x="613" y="1100" class="comment">RealLiteral</text></a></g></g><path d="M1059 1155a10 10 0 0 0 10 -10v-95a10 10 0 0 1 10 -10"></path><path d="M549.5 1040a10 10 0 0 1 10 10v179a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M569.5 1239h188"></path><path d="M871 1239h188"></path><rect x="757.5" y="1228" width="113.5" height="22"></rect><a xlink:href="#BoolLiteral"><text x="814.25" y="1243">BoolLiteral</text></a></g><path d="M1059 1239a10 10 0 0 0 10 -10v-179a10 10 0 0 1 10 -10"></path></g><g><path d="M549.5 950h0"></path><path d="M608.5 950h0"></path><a xlink:href="#Literal"><text x="579" y="955" class="comment">Literal</text></a></g></g><path d="M1079 1040a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M529.5 920a10 10 0 0 1 10 10v337a10 10 0 0 0 10 10"></path><g><path d="M549.5 1277h138.25"></path><path d="M940.75 1277h138.25"></path><g class="terminal"><path d="M687.75 1277h0"></path><path d="M716.25 1277h0"></path><rect x="687.75" y="1266" width="28.5" height="22" rx="10" ry="10"></rect><text x="702" y="1281">(</text></g><path d="M716.25 1277h10"></path><path d="M726.25 1277h10"></path><g class="non-terminal"><path d="M736.25 1277h0"></path><path d="M892.25 1277h0"></path><rect x="736.25" y="1266" width="156" height="22"></rect><a xlink:href="#ArithmExpression"><text x="814.25" y="1281">ArithmExpression</text></a></g><path d="M892.25 1277h10"></path><path d="M902.25 1277h10"></path><g class="terminal"><path d="M912.25 1277h0"></path><path d="M940.75 1277h0"></path><rect x="912.25" y="1266" width="28.5" height="22" rx="10" ry="10"></rect><text x="926.5" y="1281">)</text></g></g><path d="M1079 1277a10 10 0 0 0 10 -10v-337a10 10 0 0 1 10 -10"></path></g><g><path d="M529.5 890h0"></path><path d="M581.5 890h0"></path><a xlink:href="#Factor"><text x="555.5" y="895" class="comment">Factor</text></a></g></g></g><g><path d="M337 860h0"></path><path d="M375 860h0"></path><a xlink:href="#Term"><text x="356" y="865" class="comment">Term</text></a></g></g></g><path d="M1119 920h10"></path><path d="M1129 920h10"></path></g><g><path d="M307 721h0"></path><path d="M429 721h0"></path><a xlink:href="#ArithmExpression"><text x="368" y="726" class="comment">ArithmExpression</text></a></g></g><path d="M1139 920h20"></path><path d="M287 742a10 10 0 0 1 10 10v599a10 10 0 0 0 10 10"></path><g><path d="M307 1361h235.5"></path><path d="M903.5 1361h235.5"></path><rect x="542.5" y="1342" width="361" height="68" rx="10" ry="10" class="group-box"></rect><g><path d="M542.5 1361h0"></path><path d="M903.5 1361h0"></path><path d="M542.5 1361h20"></path><g><path d="M562.5 1361h0"></path><path d="M883.5 1361h0"></path><g class="non-terminal"><path d="M562.5 1361h0"></path><path d="M667.5 1361h0"></path><rect x="562.5" y="1350" width="105" height="22"></rect><a xlink:href="#Expression"><text x="615" y="1365">Expression</text></a></g><path d="M667.5 1361h10"></path><path d="M677.5 1361h10"></path><g class="non-terminal"><path d="M687.5 1361h0"></path><path d="M758.5 1361h0"></path><rect x="687.5" y="1350" width="71" height="22"></rect><a xlink:href="#RelOps"><text x="723" y="1365">RelOps</text></a></g><path d="M758.5 1361h10"></path><path d="M768.5 1361h10"></path><g class="non-terminal"><path d="M778.5 1361h0"></path><path d="M883.5 1361h0"></path><rect x="778.5" y="1350" width="105" height="22"></rect><a xlink:href="#Expression"><text x="831" y="1365">Expression</text></a></g></g><path d="M883.5 1361h20"></path><path d="M542.5 1361a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M562.5 1391h103.75"></path><path d="M779.75 1391h103.75"></path><rect x="666.25" y="1380" width="113.5" height="22"></rect><a xlink:href="#BoolLiteral"><text x="723" y="1395">BoolLiteral</text></a></g><path d="M883.5 1391a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><g><path d="M542.5 1331h0"></path><path d="M650.5 1331h0"></path><a xlink:href="#BoolExpression"><text x="596.5" y="1336" class="comment">BoolExpression</text></a></g></g><path d="M1139 1361a10 10 0 0 0 10 -10v-421a10 10 0 0 1 10 -10"></path></g><g><path d="M287 691h0"></path><path d="M367 691h0"></path><a xlink:href="#Expression"><text x="327" y="696" class="comment">Expression</text></a></g></g></g><path d="M1169 920h10"></path><path d="M1179 920h10"></path></g><g><path d="M257 585h0"></path><path d="M372 585h0"></path><a xlink:href="#AssignStatement"><text x="314.5" y="590" class="comment">AssignStatement</text></a></g></g><path d="M1189 920h20"></path><path d="M237 645a10 10 0 0 1 10 10v810a10 10 0 0 0 10 10"></path><g><path d="M257 1475h279.75"></path><path d="M909.25 1515h279.75"></path><rect x="536.75" y="1456" width="372.5" height="78" rx="10" ry="10" class="group-box"></rect><g><path d="M536.75 1475h10"></path><path d="M546.75 1475h10"></path><g><path d="M556.75 1475h10"></path><path d="M879.25 1475h10"></path><g class="terminal"><path d="M566.75 1475h0"></path><path d="M612.25 1475h0"></path><rect x="566.75" y="1464" width="45.5" height="22" rx="10" ry="10"></rect><text x="589.5" y="1479">var</text></g><path d="M612.25 1475h10"></path><path d="M622.25 1475h10"></path><g class="non-terminal"><path d="M632.25 1475h0"></path><path d="M771.25 1475h0"></path><rect x="632.25" y="1464" width="139" height="22"></rect><a xlink:href="#VarDeclaration"><text x="701.75" y="1479">VarDeclaration</text></a></g><path d="M771.25 1475h10"></path><path d="M781.25 1475h10"></path><g class="non-terminal"><path d="M791.25 1475h0"></path><path d="M879.25 1475h0"></path><rect x="791.25" y="1464" width="88" height="22"></rect><a xlink:href="#AssignOp"><text x="835.25" y="1479">AssignOp</text></a></g></g><path d="M889.25 1475a10 10 0 0 1 10 10v0a10 10 0 0 1 -10 10h-332.5a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M556.75 1515h82.25"></path><path d="M807 1515h82.25"></path><g class="terminal"><path d="M639 1515h0"></path><path d="M710 1515h0"></path><rect x="639" y="1504" width="71" height="22" rx="10" ry="10"></rect><text x="674.5" y="1519">readln</text></g><path d="M710 1515h10"></path><path d="M720 1515h10"></path><g class="terminal"><path d="M730 1515h0"></path><path d="M758.5 1515h0"></path><rect x="730" y="1504" width="28.5" height="22" rx="10" ry="10"></rect><text x="744.25" y="1519">(</text></g><path d="M758.5 1515h10"></path><path d="M768.5 1515h10"></path><g class="terminal"><path d="M778.5 1515h0"></path><path d="M807 1515h0"></path><rect x="778.5" y="1504" width="28.5" height="22" rx="10" ry="10"></rect><text x="792.75" y="1519">)</text></g></g><path d="M889.25 1515h10"></path><path d="M899.25 1515h10"></path></g><g><path d="M536.75 1445h0"></path><path d="M623.75 1445h0"></path><a xlink:href="#InStatement"><text x="580.25" y="1450" class="comment">InStatement</text></a></g></g><path d="M1189 1515a10 10 0 0 0 10 -10v-575a10 10 0 0 1 10 -10"></path><path d="M237 645a10 10 0 0 1 10 10v918a10 10 0 0 0 10 10"></path><g><path d="M257 1583h313.75"></path><path d="M875.25 1583h313.75"></path><rect x="570.75" y="1564" width="304.5" height="38" rx="10" ry="10" class="group-box"></rect><g><path d="M570.75 1583h10"></path><path d="M865.25 1583h10"></path><g class="terminal"><path d="M580.75 1583h0"></path><path d="M643.25 1583h0"></path><rect x="580.75" y="1572" width="62.5" height="22" rx="10" ry="10"></rect><text x="612" y="1587">print</text></g><path d="M643.25 1583h10"></path><path d="M653.25 1583h10"></path><g class="terminal"><path d="M663.25 1583h0"></path><path d="M691.75 1583h0"></path><rect x="663.25" y="1572" width="28.5" height="22" rx="10" ry="10"></rect><text x="677.5" y="1587">(</text></g><path d="M691.75 1583h10"></path><path d="M701.75 1583h10"></path><g class="non-terminal"><path d="M711.75 1583h0"></path><path d="M816.75 1583h0"></path><rect x="711.75" y="1572" width="105" height="22"></rect><a xlink:href="#Expression"><text x="764.25" y="1587">Expression</text></a></g><path d="M816.75 1583h10"></path><path d="M826.75 1583h10"></path><g class="terminal"><path d="M836.75 1583h0"></path><path d="M865.25 1583h0"></path><rect x="836.75" y="1572" width="28.5" height="22" rx="10" ry="10"></rect><text x="851" y="1587">)</text></g></g><g><path d="M570.75 1553h0"></path><path d="M664.75 1553h0"></path><a xlink:href="#OutStatement"><text x="617.75" y="1558" class="comment">OutStatement</text></a></g></g><path d="M1189 1583a10 10 0 0 0 10 -10v-643a10 10 0 0 1 10 -10"></path><path d="M237 645a10 10 0 0 1 10 10v986a10 10 0 0 0 10 10"></path><g><path d="M257 1651h272.5"></path><path d="M916.5 1651h272.5"></path><rect x="529.5" y="1632" width="387" height="38" rx="10" ry="10" class="group-box"></rect><g><path d="M529.5 1651h10"></path><path d="M906.5 1651h10"></path><g class="terminal"><path d="M539.5 1651h0"></path><path d="M602 1651h0"></path><rect x="539.5" y="1640" width="62.5" height="22" rx="10" ry="10"></rect><text x="570.75" y="1655">while</text></g><path d="M602 1651h10"></path><path d="M612 1651h10"></path><g class="terminal"><path d="M622 1651h0"></path><path d="M650.5 1651h0"></path><rect x="622" y="1640" width="28.5" height="22" rx="10" ry="10"></rect><text x="636.25" y="1655">(</text></g><path d="M650.5 1651h10"></path><path d="M660.5 1651h10"></path><g class="non-terminal"><path d="M670.5 1651h0"></path><path d="M775.5 1651h0"></path><rect x="670.5" y="1640" width="105" height="22"></rect><a xlink:href="#Expression"><text x="723" y="1655">Expression</text></a></g><path d="M775.5 1651h10"></path><path d="M785.5 1651h10"></path><g class="terminal"><path d="M795.5 1651h0"></path><path d="M824 1651h0"></path><rect x="795.5" y="1640" width="28.5" height="22" rx="10" ry="10"></rect><text x="809.75" y="1655">)</text></g><path d="M824 1651h10"></path><path d="M834 1651h10"></path><g class="non-terminal"><path d="M844 1651h0"></path><path d="M906.5 1651h0"></path><rect x="844" y="1640" width="62.5" height="22"></rect><a xlink:href="#Block"><text x="875.25" y="1655">Block</text></a></g></g><g><path d="M529.5 1621h0"></path><path d="M637.5 1621h0"></path><a xlink:href="#WhileStatement"><text x="583.5" y="1626" class="comment">WhileStatement</text></a></g></g><path d="M1189 1651a10 10 0 0 0 10 -10v-711a10 10 0 0 1 10 -10"></path><path d="M237 645a10 10 0 0 1 10 10v1054a10 10 0 0 0 10 10"></path><g><path d="M257 1719h265.25"></path><path d="M923.75 1766h265.25"></path><rect x="522.25" y="1700" width="401.5" height="115" rx="10" ry="10" class="group-box"></rect><g><path d="M522.25 1719h10"></path><path d="M532.25 1719h10"></path><g><path d="M542.25 1719h10"></path><path d="M893.75 1719h10"></path><g class="terminal"><path d="M552.25 1719h0"></path><path d="M589.25 1719h0"></path><rect x="552.25" y="1708" width="37" height="22" rx="10" ry="10"></rect><text x="570.75" y="1723">if</text></g><path d="M589.25 1719h10"></path><path d="M599.25 1719h10"></path><g class="terminal"><path d="M609.25 1719h0"></path><path d="M637.75 1719h0"></path><rect x="609.25" y="1708" width="28.5" height="22" rx="10" ry="10"></rect><text x="623.5" y="1723">(</text></g><path d="M637.75 1719h10"></path><path d="M647.75 1719h10"></path><g class="non-terminal"><path d="M657.75 1719h0"></path><path d="M762.75 1719h0"></path><rect x="657.75" y="1708" width="105" height="22"></rect><a xlink:href="#Expression"><text x="710.25" y="1723">Expression</text></a></g><path d="M762.75 1719h10"></path><path d="M772.75 1719h10"></path><g class="terminal"><path d="M782.75 1719h0"></path><path d="M811.25 1719h0"></path><rect x="782.75" y="1708" width="28.5" height="22" rx="10" ry="10"></rect><text x="797" y="1723">)</text></g><path d="M811.25 1719h10"></path><path d="M821.25 1719h10"></path><g class="non-terminal"><path d="M831.25 1719h0"></path><path d="M893.75 1719h0"></path><rect x="831.25" y="1708" width="62.5" height="22"></rect><a xlink:href="#Block"><text x="862.5" y="1723">Block</text></a></g></g><path d="M903.75 1719a10 10 0 0 1 10 10v0a10 10 0 0 1 -10 10h-361.5a10 10 0 0 0 -10 10v7a10 10 0 0 0 10 10"></path><g><path d="M542.25 1766h52"></path><path d="M851.75 1766h52"></path><g><path d="M594.25 1766h0"></path><path d="M851.75 1766h0"></path><path d="M594.25 1766a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M614.25 1746h217.5"></path></g><path d="M831.75 1746a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M594.25 1766h20"></path><g><path d="M614.25 1766h0"></path><path d="M831.75 1766h0"></path><g class="terminal"><path d="M614.25 1766h0"></path><path d="M668.25 1766h0"></path><rect x="614.25" y="1755" width="54" height="22" rx="10" ry="10"></rect><text x="641.25" y="1770">else</text></g><path d="M668.25 1766h10"></path><g><path d="M678.25 1766h0"></path><path d="M831.75 1766h0"></path><path d="M678.25 1766h20"></path><g class="non-terminal"><path d="M698.25 1766h0"></path><path d="M811.75 1766h0"></path><rect x="698.25" y="1755" width="113.5" height="22"></rect><a xlink:href="#IfStatement"><text x="755" y="1770">IfStatement</text></a></g><path d="M811.75 1766h20"></path><path d="M678.25 1766a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M698.25 1796h25.5"></path><path d="M786.25 1796h25.5"></path><rect x="723.75" y="1785" width="62.5" height="22"></rect><a xlink:href="#Block"><text x="755" y="1800">Block</text></a></g><path d="M811.75 1796a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g></g><path d="M831.75 1766h20"></path></g></g><path d="M903.75 1766h10"></path><path d="M913.75 1766h10"></path></g><g><path d="M522.25 1689h0"></path><path d="M609.25 1689h0"></path><a xlink:href="#IfStatement"><text x="565.75" y="1694" class="comment">IfStatement</text></a></g></g><path d="M1189 1766a10 10 0 0 0 10 -10v-826a10 10 0 0 1 10 -10"></path></g><g><path d="M237 555h0"></path><path d="M310 555h0"></path><a xlink:href="#Statement"><text x="273.5" y="560" class="comment">Statement</text></a></g></g><path d="M1209 920h10"></path><path d="M237 645a10 10 0 0 0 -10 10v1177a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M237 1842h471.75"></path><path d="M737.25 1842h471.75"></path><rect x="708.75" y="1831" width="28.5" height="22" rx="10" ry="10"></rect><text x="723" y="1846">;</text></g><path d="M1209 1842a10 10 0 0 0 10 -10v-902a10 10 0 0 0 -10 -10"></path></g><g><path d="M217 525h0"></path><path d="M325 525h0"></path><a xlink:href="#StatementsList"><text x="271" y="530" class="comment">StatementsList</text></a></g></g><path d="M1229 920h20"></path></g><path d="M1249 920h10"></path><g class="terminal"><path d="M1259 920h0"></path><path d="M1287.5 920h0"></path><rect x="1259" y="909" width="28.5" height="22" rx="10" ry="10"></rect><text x="1273.25" y="924">}</text></g></g><g><path d="M148.5 487h0"></path><path d="M193.5 487h0"></path><a xlink:href="#Block"><text x="171" y="492" class="comment">Block</text></a></g></g></g><path d="M1307.5 920h10"></path><path d="M1317.5 920h10"></path></g><g><path d="M70 259h0"></path><path d="M150 259h0"></path><a xlink:href="#EntryPoint"><text x="110" y="264" class="comment">EntryPoint</text></a></g></g></g><path d="M1337.5 920h10"></path><path d="M1347.5 920h0"></path></g><path d="M1347.5 920h10"></path><path d="M 1357.5 920 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Grammar</span> = <a class="ebnf-non-terminal" href="#PackageDeclaration">PackageDeclaration</a> , <a class="ebnf-non-terminal" href="#EntryPoint">EntryPoint</a> <span class="ebnf-end">;</span></code>
+  <p><strong>Grammar</strong> is referencing:<p>
+<ul>
+<li><a href="#PackageDeclaration">PackageDeclaration</a></li><li><a href="#EntryPoint">EntryPoint</a></li>
+</ul>
+</section>
+
+  </article>
+  <footer>
+    <p>Date: 2024-09-23T12:37 - <a href="?theme=dark" data-theme="dark">Dark</a> - <a href="?theme=light" data-theme="light">Light</a></p>
+  </footer>
+  </main>
+  <script type="text/javascript">
+    document.querySelector("header button").addEventListener("click", function() {
+      document.getElementsByTagName("html")[0].classList.toggle("menu-open");
+    });
+    document.querySelector("nav").addEventListener("click", function(event) {
+      if (event.target.tagName !== "A") return;
+      htmlTag.classList.remove("menu-open");
+    });
+    document.querySelectorAll("footer a").forEach(element =>
+      element.addEventListener("click", function(event) {
+        event.preventDefault();
+        const theme = event.target.getAttribute("data-theme");
+        const remove = Array.from(htmlTag.classList).filter(className => className.startsWith("theme-"));
+        remove.forEach(name => htmlTag.classList.remove(name));
+        htmlTag.classList.add("theme-" + theme);
+      })
+    );
+  </script>
+
+</body>
+</html>
