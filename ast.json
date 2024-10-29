@@ -1,9 +1,15 @@
 {
   "name": "GrammarNode",
+  "line": 0,
+  "indexInLine": 0,
   "packageDecl": {
     "name": "PackageDeclarationNode",
+    "line": 3,
+    "indexInLine": 0,
     "id": {
       "name": "IdListNode",
+      "line": 1,
+      "indexInLine": 23,
       "ids": [
         "com",
         "example",
@@ -19,52 +25,80 @@
       "statements": [
         {
           "name": "AssignStatementNode",
+          "line": 4,
+          "indexInLine": 11,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 4,
+            "indexInLine": 8,
             "id": "a",
             "type": null
           },
           "expression": {
             "name": "LiteralNode",
+            "line": 4,
+            "indexInLine": 11,
             "value": "1",
             "type": "int_literal"
           }
         },
         {
           "name": "AssignStatementNode",
+          "line": 5,
+          "indexInLine": 11,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 5,
+            "indexInLine": 8,
             "id": "b",
             "type": null
           },
           "expression": {
             "name": "LiteralNode",
+            "line": 5,
+            "indexInLine": 11,
             "value": "2",
             "type": "int_literal"
           }
         },
         {
           "name": "AssignStatementNode",
+          "line": 6,
+          "indexInLine": 15,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 6,
+            "indexInLine": 8,
             "id": "c",
             "type": null
           },
           "expression": {
             "name": "BinaryOperationNode",
+            "line": 6,
+            "indexInLine": 15,
             "left": {
-              "name": "a"
+              "name": "IdNode",
+              "line": 6,
+              "indexInLine": 10,
+              "id": "a"
             },
             "operator": "+",
             "right": {
-              "name": "b"
+              "name": "IdNode",
+              "line": 6,
+              "indexInLine": 14,
+              "id": "b"
             }
           }
         },
         {
           "name": "AssignStatementNode",
+          "line": 8,
+          "indexInLine": 12,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 8,
+            "indexInLine": 12,
             "id": "d",
             "type": "Int"
           },
@@ -72,59 +106,99 @@
         },
         {
           "name": "AssignStatementNode",
+          "line": 10,
+          "indexInLine": 7,
           "varDecl": {
-            "name": "d"
+            "name": "IdNode",
+            "line": 10,
+            "indexInLine": 2,
+            "id": "d"
           },
           "expression": {
             "name": "LiteralNode",
+            "line": 10,
+            "indexInLine": 7,
             "value": "3",
             "type": "int_literal"
           }
         },
         {
           "name": "AssignStatementNode",
+          "line": 12,
+          "indexInLine": 11,
           "varDecl": {
-            "name": "d"
+            "name": "IdNode",
+            "line": 12,
+            "indexInLine": 2,
+            "id": "d"
           },
           "expression": {
             "name": "BinaryOperationNode",
+            "line": 12,
+            "indexInLine": 11,
             "left": {
-              "name": "d"
+              "name": "IdNode",
+              "line": 12,
+              "indexInLine": 6,
+              "id": "d"
             },
             "operator": "*",
             "right": {
-              "name": "a"
+              "name": "IdNode",
+              "line": 12,
+              "indexInLine": 10,
+              "id": "a"
             }
           }
         },
         {
           "name": "AssignStatementNode",
+          "line": 14,
+          "indexInLine": 19,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 14,
+            "indexInLine": 15,
             "id": "e",
             "type": "Float"
           },
           "expression": {
             "name": "LiteralNode",
+            "line": 14,
+            "indexInLine": 19,
             "value": ".2",
             "type": "float_literal"
           }
         },
         {
           "name": "AssignStatementNode",
+          "line": 16,
+          "indexInLine": 15,
           "varDecl": {
-            "name": "e"
+            "name": "IdNode",
+            "line": 16,
+            "indexInLine": 2,
+            "id": "e"
           },
           "expression": {
             "name": "BinaryOperationNode",
+            "line": 16,
+            "indexInLine": 15,
             "left": {
               "name": "BinaryOperationNode",
+              "line": 16,
+              "indexInLine": 12,
               "left": {
-                "name": "e"
+                "name": "IdNode",
+                "line": 16,
+                "indexInLine": 6,
+                "id": "e"
               },
               "operator": "/",
               "right": {
                 "name": "LiteralNode",
+                "line": 16,
+                "indexInLine": 12,
                 "value": "2",
                 "type": "int_literal"
               }
@@ -132,6 +206,8 @@
             "operator": "-",
             "right": {
               "name": "LiteralNode",
+              "line": 16,
+              "indexInLine": 15,
               "value": "1",
               "type": "int_literal"
             }
@@ -139,46 +215,76 @@
         },
         {
           "name": "AssignStatementNode",
+          "line": 18,
+          "indexInLine": 29,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 18,
+            "indexInLine": 19,
             "id": "readNum",
             "type": "Int"
           },
           "expression": {
-            "name": "readln"
+            "name": "IdNode",
+            "line": 18,
+            "indexInLine": 21,
+            "id": "readln"
           }
         },
         {
           "name": "AssignStatementNode",
+          "line": 20,
+          "indexInLine": 58,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 20,
+            "indexInLine": 8,
             "id": "f",
             "type": null
           },
           "expression": {
             "name": "BinaryOperationNode",
+            "line": 20,
+            "indexInLine": 58,
             "left": {
               "name": "BinaryOperationNode",
+              "line": 20,
+              "indexInLine": 27,
               "left": {
                 "name": "LiteralNode",
+                "line": 20,
+                "indexInLine": 13,
                 "value": "-1",
                 "type": "int_literal"
               },
               "operator": "+",
               "right": {
                 "name": "BinaryOperationNode",
+                "line": 20,
+                "indexInLine": 27,
                 "left": {
-                  "name": "e"
+                  "name": "IdNode",
+                  "line": 20,
+                  "indexInLine": 15,
+                  "id": "e"
                 },
                 "operator": "*",
                 "right": {
                   "name": "BinaryOperationNode",
+                  "line": 20,
+                  "indexInLine": 25,
                   "left": {
-                    "name": "a"
+                    "name": "IdNode",
+                    "line": 20,
+                    "indexInLine": 20,
+                    "id": "a"
                   },
                   "operator": "^",
                   "right": {
-                    "name": "c"
+                    "name": "IdNode",
+                    "line": 20,
+                    "indexInLine": 24,
+                    "id": "c"
                   }
                 }
               }
@@ -186,32 +292,53 @@
             "operator": "+",
             "right": {
               "name": "BinaryOperationNode",
+              "line": 20,
+              "indexInLine": 58,
               "left": {
-                "name": "b"
+                "name": "IdNode",
+                "line": 20,
+                "indexInLine": 29,
+                "id": "b"
               },
               "operator": "*",
               "right": {
                 "name": "BinaryOperationNode",
+                "line": 20,
+                "indexInLine": 57,
                 "left": {
                   "name": "LiteralNode",
+                  "line": 20,
+                  "indexInLine": 38,
                   "value": "1.2",
                   "type": "float_literal"
                 },
                 "operator": "+",
                 "right": {
                   "name": "BinaryOperationNode",
+                  "line": 20,
+                  "indexInLine": 57,
                   "left": {
-                    "name": "a"
+                    "name": "IdNode",
+                    "line": 20,
+                    "indexInLine": 40,
+                    "id": "a"
                   },
                   "operator": "*",
                   "right": {
                     "name": "BinaryOperationNode",
+                    "line": 20,
+                    "indexInLine": 56,
                     "left": {
-                      "name": "readNum"
+                      "name": "IdNode",
+                      "line": 20,
+                      "indexInLine": 45,
+                      "id": "readNum"
                     },
                     "operator": "-",
                     "right": {
                       "name": "LiteralNode",
+                      "line": 20,
+                      "indexInLine": 56,
                       "value": "1",
                       "type": "int_literal"
                     }
@@ -223,77 +350,123 @@
         },
         {
           "name": "AssignStatementNode",
+          "line": 23,
+          "indexInLine": 11,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 23,
+            "indexInLine": 8,
             "id": "i",
             "type": null
           },
           "expression": {
             "name": "LiteralNode",
+            "line": 23,
+            "indexInLine": 11,
             "value": "0",
             "type": "int_literal"
           }
         },
         {
           "name": "AssignStatementNode",
+          "line": 24,
+          "indexInLine": 11,
           "varDecl": {
             "name": "VarDeclarationNode",
+            "line": 24,
+            "indexInLine": 8,
             "id": "l",
             "type": null
           },
           "expression": {
             "name": "LiteralNode",
+            "line": 24,
+            "indexInLine": 11,
             "value": "2",
             "type": "int_literal"
           }
         },
         {
           "name": "WhileStatementNode",
+          "line": 49,
+          "indexInLine": 0,
           "condition": {
             "name": "BinaryOperationNode",
+            "line": 25,
+            "indexInLine": 13,
             "left": {
-              "name": "i"
+              "name": "IdNode",
+              "line": 25,
+              "indexInLine": 8,
+              "id": "i"
             },
             "operator": "<",
             "right": {
               "name": "LiteralNode",
+              "line": 25,
+              "indexInLine": 13,
               "value": "3",
               "type": "int_literal"
             }
           },
           "body": {
             "name": "BlockNode",
+            "line": 49,
+            "indexInLine": 0,
             "statements": [
               {
                 "name": "IfStatementNode",
+                "line": 36,
+                "indexInLine": 4,
                 "condition": {
                   "name": "BinaryOperationNode",
+                  "line": 26,
+                  "indexInLine": 15,
                   "left": {
-                    "name": "l"
+                    "name": "IdNode",
+                    "line": 26,
+                    "indexInLine": 8,
+                    "id": "l"
                   },
                   "operator": ">",
                   "right": {
                     "name": "LiteralNode",
+                    "line": 26,
+                    "indexInLine": 15,
                     "value": "410",
                     "type": "int_literal"
                   }
                 },
                 "ifBlock": {
                   "name": "BlockNode",
+                  "line": 28,
+                  "indexInLine": 6,
                   "statements": [
                     {
                       "name": "AssignStatementNode",
+                      "line": 27,
+                      "indexInLine": 15,
                       "varDecl": {
-                        "name": "l"
+                        "name": "IdNode",
+                        "line": 27,
+                        "indexInLine": 6,
+                        "id": "l"
                       },
                       "expression": {
                         "name": "BinaryOperationNode",
+                        "line": 27,
+                        "indexInLine": 15,
                         "left": {
-                          "name": "l"
+                          "name": "IdNode",
+                          "line": 27,
+                          "indexInLine": 10,
+                          "id": "l"
                         },
                         "operator": "/",
                         "right": {
                           "name": "LiteralNode",
+                          "line": 27,
+                          "indexInLine": 15,
                           "value": "2",
                           "type": "int_literal"
                         }
@@ -303,34 +476,57 @@
                 },
                 "elseBlock": {
                   "name": "IfStatementNode",
+                  "line": 36,
+                  "indexInLine": 4,
                   "condition": {
                     "name": "BinaryOperationNode",
+                    "line": 28,
+                    "indexInLine": 21,
                     "left": {
-                      "name": "l"
+                      "name": "IdNode",
+                      "line": 28,
+                      "indexInLine": 15,
+                      "id": "l"
                     },
                     "operator": "<=",
                     "right": {
                       "name": "LiteralNode",
+                      "line": 28,
+                      "indexInLine": 21,
                       "value": "0",
                       "type": "int_literal"
                     }
                   },
                   "ifBlock": {
                     "name": "BlockNode",
+                    "line": 30,
+                    "indexInLine": 6,
                     "statements": [
                       {
                         "name": "AssignStatementNode",
+                        "line": 29,
+                        "indexInLine": 15,
                         "varDecl": {
-                          "name": "l"
+                          "name": "IdNode",
+                          "line": 29,
+                          "indexInLine": 6,
+                          "id": "l"
                         },
                         "expression": {
                           "name": "BinaryOperationNode",
+                          "line": 29,
+                          "indexInLine": 15,
                           "left": {
-                            "name": "l"
+                            "name": "IdNode",
+                            "line": 29,
+                            "indexInLine": 10,
+                            "id": "l"
                           },
                           "operator": "+",
                           "right": {
                             "name": "LiteralNode",
+                            "line": 29,
+                            "indexInLine": 15,
                             "value": "1",
                             "type": "int_literal"
                           }
@@ -340,34 +536,57 @@
                   },
                   "elseBlock": {
                     "name": "IfStatementNode",
+                    "line": 36,
+                    "indexInLine": 4,
                     "condition": {
                       "name": "BinaryOperationNode",
+                      "line": 30,
+                      "indexInLine": 22,
                       "left": {
-                        "name": "l"
+                        "name": "IdNode",
+                        "line": 30,
+                        "indexInLine": 15,
+                        "id": "l"
                       },
                       "operator": ">=",
                       "right": {
                         "name": "LiteralNode",
+                        "line": 30,
+                        "indexInLine": 22,
                         "value": "20",
                         "type": "int_literal"
                       }
                     },
                     "ifBlock": {
                       "name": "BlockNode",
+                      "line": 32,
+                      "indexInLine": 6,
                       "statements": [
                         {
                           "name": "AssignStatementNode",
+                          "line": 31,
+                          "indexInLine": 16,
                           "varDecl": {
-                            "name": "l"
+                            "name": "IdNode",
+                            "line": 31,
+                            "indexInLine": 6,
+                            "id": "l"
                           },
                           "expression": {
                             "name": "BinaryOperationNode",
+                            "line": 31,
+                            "indexInLine": 16,
                             "left": {
-                              "name": "l"
+                              "name": "IdNode",
+                              "line": 31,
+                              "indexInLine": 10,
+                              "id": "l"
                             },
                             "operator": "+",
                             "right": {
                               "name": "LiteralNode",
+                              "line": 31,
+                              "indexInLine": 16,
                               "value": "12",
                               "type": "int_literal"
                             }
@@ -377,20 +596,34 @@
                     },
                     "elseBlock": {
                       "name": "BlockNode",
+                      "line": 36,
+                      "indexInLine": 4,
                       "statements": [
                         {
                           "name": "AssignStatementNode",
+                          "line": 33,
+                          "indexInLine": 15,
                           "varDecl": {
-                            "name": "l"
+                            "name": "IdNode",
+                            "line": 33,
+                            "indexInLine": 6,
+                            "id": "l"
                           },
                           "expression": {
                             "name": "BinaryOperationNode",
+                            "line": 33,
+                            "indexInLine": 15,
                             "left": {
-                              "name": "l"
+                              "name": "IdNode",
+                              "line": 33,
+                              "indexInLine": 10,
+                              "id": "l"
                             },
                             "operator": "*",
                             "right": {
                               "name": "LiteralNode",
+                              "line": 33,
+                              "indexInLine": 15,
                               "value": "2",
                               "type": "int_literal"
                             }
@@ -403,44 +636,69 @@
               },
               {
                 "name": "IfStatementNode",
+                "line": 42,
+                "indexInLine": 4,
                 "condition": {
                   "name": "BinaryOperationNode",
+                  "line": 36,
+                  "indexInLine": 17,
                   "left": {
-                    "name": "i"
+                    "name": "IdNode",
+                    "line": 36,
+                    "indexInLine": 8,
+                    "id": "i"
                   },
                   "operator": "==",
                   "right": {
                     "name": "LiteralNode",
+                    "line": 36,
+                    "indexInLine": 17,
                     "value": "true",
                     "type": "bool_literal"
                   }
                 },
                 "ifBlock": {
                   "name": "BlockNode",
+                  "line": 42,
+                  "indexInLine": 4,
                   "statements": [
                     {
                       "name": "IfStatementNode",
+                      "line": 40,
+                      "indexInLine": 4,
                       "condition": {
                         "name": "BinaryOperationNode",
+                        "line": 37,
+                        "indexInLine": 20,
                         "left": {
                           "name": "LiteralNode",
+                          "line": 37,
+                          "indexInLine": 16,
                           "value": "false",
                           "type": "bool_literal"
                         },
                         "operator": "==",
                         "right": {
                           "name": "LiteralNode",
+                          "line": 37,
+                          "indexInLine": 20,
                           "value": "0",
                           "type": "int_literal"
                         }
                       },
                       "ifBlock": {
                         "name": "BlockNode",
+                        "line": 40,
+                        "indexInLine": 4,
                         "statements": [
                           {
                             "name": "OutStatementNode",
+                            "line": 38,
+                            "indexInLine": 19,
                             "expression": {
                               "name": "LiteralNode",
+                              "line": 38,
+                              "indexInLine": 18,
                               "value": "true",
                               "type": "bool_literal"
                             }
@@ -455,49 +713,81 @@
               },
               {
                 "name": "IfStatementNode",
+                "line": 47,
+                "indexInLine": 4,
                 "condition": {
                   "name": "BinaryOperationNode",
+                  "line": 42,
+                  "indexInLine": 15,
                   "left": {
-                    "name": "i"
+                    "name": "IdNode",
+                    "line": 42,
+                    "indexInLine": 8,
+                    "id": "i"
                   },
                   "operator": "===",
                   "right": {
                     "name": "LiteralNode",
+                    "line": 42,
+                    "indexInLine": 15,
                     "value": "2",
                     "type": "int_literal"
                   }
                 },
                 "ifBlock": {
                   "name": "BlockNode",
+                  "line": 43,
+                  "indexInLine": 6,
                   "statements": []
                 },
                 "elseBlock": {
                   "name": "IfStatementNode",
+                  "line": 47,
+                  "indexInLine": 4,
                   "condition": {
                     "name": "BinaryOperationNode",
+                    "line": 43,
+                    "indexInLine": 21,
                     "left": {
-                      "name": "i"
+                      "name": "IdNode",
+                      "line": 43,
+                      "indexInLine": 15,
+                      "id": "i"
                     },
                     "operator": "!=",
                     "right": {
                       "name": "LiteralNode",
+                      "line": 43,
+                      "indexInLine": 21,
                       "value": "1",
                       "type": "int_literal"
                     }
                   },
                   "ifBlock": {
                     "name": "BlockNode",
+                    "line": 47,
+                    "indexInLine": 4,
                     "statements": [
                       {
                         "name": "OutStatementNode",
+                        "line": 44,
+                        "indexInLine": 18,
                         "expression": {
                           "name": "BinaryOperationNode",
+                          "line": 44,
+                          "indexInLine": 17,
                           "left": {
-                            "name": "f"
+                            "name": "IdNode",
+                            "line": 44,
+                            "indexInLine": 12,
+                            "id": "f"
                           },
                           "operator": "+",
                           "right": {
-                            "name": "i"
+                            "name": "IdNode",
+                            "line": 44,
+                            "indexInLine": 16,
+                            "id": "i"
                           }
                         }
                       }
@@ -508,17 +798,29 @@
               },
               {
                 "name": "AssignStatementNode",
+                "line": 47,
+                "indexInLine": 13,
                 "varDecl": {
-                  "name": "i"
+                  "name": "IdNode",
+                  "line": 47,
+                  "indexInLine": 4,
+                  "id": "i"
                 },
                 "expression": {
                   "name": "BinaryOperationNode",
+                  "line": 47,
+                  "indexInLine": 13,
                   "left": {
-                    "name": "i"
+                    "name": "IdNode",
+                    "line": 47,
+                    "indexInLine": 8,
+                    "id": "i"
                   },
                   "operator": "+",
                   "right": {
                     "name": "LiteralNode",
+                    "line": 47,
+                    "indexInLine": 13,
                     "value": "1",
                     "type": "int_literal"
                   }

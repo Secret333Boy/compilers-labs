@@ -1,0 +1,5 @@
+package com.example.lab;
+
+fun main() {
+  var a = b + 1;
+}

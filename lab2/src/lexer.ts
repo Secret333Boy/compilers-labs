@@ -96,6 +96,7 @@ const transitionTable: Record<State, Record<string, State | undefined>> = {
 
 export interface Token {
   line: number;
+  indexInLine: number;
   lexeme: string;
   type: string;
   index: number | null | undefined;
@@ -145,6 +146,7 @@ const processLexeme = (
   state: State,
   lexeme: string,
   lineNumber: number,
+  indexInLine: number,
   tokenTable: Token[],
   idConstTable: IdConstTable
 ) => {
@@ -152,6 +154,7 @@ const processLexeme = (
     if (keywords.includes(lexeme)) {
       tokenTable.push({
         line: lineNumber,
+        indexInLine,
         lexeme,
         type: "keyword",
         index: null,
@@ -163,7 +166,7 @@ const processLexeme = (
       if (!idConstTable.identifiers.hasOwnProperty(lexeme)) {
         idConstTable.identifiers[lexeme] = index;
       }
-      tokenTable.push({ line: lineNumber, lexeme, type: "identifier", index });
+      tokenTable.push({ line: lineNumber,indexInLine, lexeme, type: "identifier", index });
     }
   } else if (state === State.INTEGER) {
     let index = idConstTable.constants.hasOwnProperty(lexeme)
@@ -172,7 +175,7 @@ const processLexeme = (
     if (!idConstTable.constants.hasOwnProperty(lexeme)) {
       idConstTable.constants[lexeme] = index;
     }
-    tokenTable.push({ line: lineNumber, lexeme, type: "int_literal", index });
+    tokenTable.push({ line: lineNumber,indexInLine, lexeme, type: "int_literal", index });
   } else if (state === State.FLOAT) {
     let index = idConstTable.constants.hasOwnProperty(lexeme)
       ? idConstTable.constants[lexeme]
@@ -182,6 +185,7 @@ const processLexeme = (
     }
     tokenTable.push({
       line: lineNumber,
+      indexInLine,
       lexeme,
       type: "float_literal",
       index,
@@ -201,6 +205,7 @@ const processLexeme = (
 
     tokenTable.push({
       line: lineNumber,
+      indexInLine,
       lexeme,
       type: tokenType,
       index: null,
@@ -208,6 +213,7 @@ const processLexeme = (
   } else if (state === State.DIVIDE_OP) {
     tokenTable.push({
       line: lineNumber,
+      indexInLine,
       lexeme,
       type: "divideOp",
       index: null,
@@ -259,7 +265,7 @@ export class Lexer {
             isFinalState(state) &&
             !(state === State.INTEGER && nextStateVal === State.FLOAT)
           ) {
-            processLexeme(state, lexeme, lineNumber + 1, tokens, idConstTable);
+            processLexeme(state, lexeme, lineNumber + 1, i - lexeme.length, tokens, idConstTable);
             lexeme = "";
           }
           state = nextStateVal;
@@ -271,13 +277,21 @@ export class Lexer {
             getCharClass(line[i + 1]) !== CharClass.DIGIT)
         ) {
           if (lexeme.length > 0) {
-            processLexeme(state, lexeme, lineNumber + 1, tokens, idConstTable);
+            processLexeme(
+              state,
+              lexeme,
+              lineNumber + 1,
+              i - lexeme.length,
+              tokens,
+              idConstTable
+            );
             lexeme = "";
           }
           processLexeme(
             State.OPERATOR,
             char,
             lineNumber + 1,
+            i - lexeme.length,
             tokens,
             idConstTable
           );
@@ -294,7 +308,7 @@ export class Lexer {
       }
 
       if (isFinalState(state)) {
-        processLexeme(state, lexeme, lineNumber + 1, tokens, idConstTable);
+        processLexeme(state, lexeme, lineNumber + 1, i - lexeme.length, tokens, idConstTable);
         lexeme = "";
         state = State.START;
       } else {

@@ -20,7 +20,7 @@ import {
   WhileStatementNode,
 } from "./ast.nodes";
 
-const relOps = ["==", "!=", "^", "<", "<=", ">", ">=", "==="];
+export const relOps = ["==", "!=", "<", "<=", ">", ">=", "==="];
 
 export class Parser {
   private tokens: Token[];
@@ -43,7 +43,10 @@ export class Parser {
     try {
       return this.parseGrammar();
     } catch (e) {
-      if (e instanceof Error) e.message += ` (${this.currentToken().line})`;
+      if (e instanceof Error)
+        e.message += ` [${this.currentToken().line}:${
+          this.currentToken().indexInLine
+        }]`;
 
       throw e;
     }
@@ -52,7 +55,9 @@ export class Parser {
   private parseGrammar(): ASTNode {
     return new GrammarNode(
       this.parsePackageDeclaration(),
-      this.parseEntryPoint()
+      this.parseEntryPoint(),
+      0,
+      0
     );
   }
 
@@ -60,7 +65,11 @@ export class Parser {
     this.expectLexeme("package");
     const id = this.parsePackageId();
     this.expectLexeme(";");
-    return new PackageDeclarationNode(id);
+
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new PackageDeclarationNode(id, line, indexInLine);
   }
 
   private parseEntryPoint() {
@@ -70,7 +79,10 @@ export class Parser {
     const params = this.parseOptionalVarDeclarationsList();
     this.expectLexeme(")");
     const body = this.parseBlock();
-    return new EntryPointNode(params, body);
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new EntryPointNode(params, body, line, indexInLine);
   }
 
   private parsePackageId(): IdListNode {
@@ -80,7 +92,11 @@ export class Parser {
       this.nextToken();
       ids.push(this.parseId());
     }
-    return new IdListNode(ids);
+
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new IdListNode(ids, line, indexInLine);
   }
 
   private expectLexeme(token: string) {
@@ -99,7 +115,10 @@ export class Parser {
     this.expectLexeme("{");
     const statements = this.parseStatementsList();
     this.expectLexeme("}");
-    return new BlockNode(statements);
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new BlockNode(statements, line, indexInLine);
   }
 
   private parseStatementsList(): StatementNode[] {
@@ -134,7 +153,10 @@ export class Parser {
       this.nextToken();
       varDecl = this.parseVarDeclaration();
     } else {
-      varDecl = new IdNode(this.parseId());
+      const currentToken = this.currentToken();
+      const line = currentToken?.line;
+      const indexInLine = currentToken?.indexInLine;
+      varDecl = new IdNode(this.parseId(), line, indexInLine);
     }
 
     let expression = null;
@@ -143,7 +165,11 @@ export class Parser {
       expression = this.parseExpression();
     }
 
-    return new AssignStatementNode(varDecl, expression);
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+
+    return new AssignStatementNode(varDecl, expression, line, indexInLine);
   }
 
   private parseIfStatement(): IfStatementNode {
@@ -163,7 +189,16 @@ export class Parser {
       }
     }
 
-    return new IfStatementNode(condition, ifBlock, elseBlock);
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new IfStatementNode(
+      condition,
+      ifBlock,
+      elseBlock,
+      line,
+      indexInLine
+    );
   }
 
   private parseWhileStatement(): WhileStatementNode {
@@ -172,34 +207,12 @@ export class Parser {
     const condition = this.parseExpression();
     this.expectLexeme(")");
     const body = this.parseBlock();
-    return new WhileStatementNode(condition, body);
+
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new WhileStatementNode(condition, body, line, indexInLine);
   }
-
-  // private parseBoolExpression(): ExpressionNode {
-  //   const currentToken = this.currentToken();
-
-  //   if (currentToken.lexeme === "true" || currentToken.lexeme === "false") {
-  //     return new LiteralNode(currentToken.lexeme, "bool_literal");
-  //   }
-
-  //   const expression1 = this.parseExpression();
-
-  //   const operator = this.currentToken().lexeme;
-
-  //   if (!relOps.includes(operator)) {
-  //     throw new Error(
-  //       `Invalid relative operator: ${operator}. One of these exprected: ${relOps.join(
-  //         ", "
-  //       )}`
-  //     );
-  //   }
-
-  //   this.nextToken();
-
-  //   const expression2 = this.parseExpression();
-
-  //   return new BinaryOperationNode(expression1, operator, expression2);
-  // }
 
   private parseExpression(): ExpressionNode {
     let node = this.parseTerm();
@@ -211,7 +224,16 @@ export class Parser {
       const operator = this.currentToken();
       this.nextToken();
       const right = this.parseTerm();
-      node = new BinaryOperationNode(node, operator.lexeme, right);
+      const currentToken = this.currentToken();
+      const line = currentToken?.line;
+      const indexInLine = currentToken?.indexInLine;
+      node = new BinaryOperationNode(
+        node,
+        operator.lexeme,
+        right,
+        line,
+        indexInLine
+      );
     }
 
     return node;
@@ -228,7 +250,16 @@ export class Parser {
       const operator = this.currentToken();
       this.nextToken();
       const right = this.parseFactor();
-      node = new BinaryOperationNode(node, operator.lexeme, right);
+      const currentToken = this.currentToken();
+      const line = currentToken?.line;
+      const indexInLine = currentToken?.indexInLine;
+      node = new BinaryOperationNode(
+        node,
+        operator.lexeme,
+        right,
+        line,
+        indexInLine
+      );
     }
     return node;
   }
@@ -237,17 +268,26 @@ export class Parser {
     const token = this.currentToken();
 
     if (token.type === "identifier") {
-      return new IdNode(this.parseId());
+      const currentToken = this.currentToken();
+      const line = currentToken?.line;
+      const indexInLine = currentToken?.indexInLine;
+      return new IdNode(this.parseId(), line, indexInLine);
     } else if (
       token.lexeme === "true" ||
       token.lexeme === "false" ||
       token.type === "bool_literal"
     ) {
       this.nextToken();
-      return new LiteralNode(token.lexeme, "bool_literal");
+      const currentToken = this.currentToken();
+      const line = currentToken?.line;
+      const indexInLine = currentToken?.indexInLine;
+      return new LiteralNode(token.lexeme, "bool_literal", line, indexInLine);
     } else if (token.type === "int_literal" || token.type === "float_literal") {
       this.nextToken();
-      return new LiteralNode(token.lexeme, token.type);
+      const currentToken = this.currentToken();
+      const line = currentToken?.line;
+      const indexInLine = currentToken?.indexInLine;
+      return new LiteralNode(token.lexeme, token.type, line, indexInLine);
     } else if (token.lexeme === "(") {
       this.nextToken();
       const expr = this.parseExpression();
@@ -257,7 +297,10 @@ export class Parser {
       const sign = token.lexeme;
       this.nextToken();
       const nextFactor = this.parseFactor();
-      return new UnaryOperationNode(sign, nextFactor);
+      const currentToken = this.currentToken();
+      const line = currentToken?.line;
+      const indexInLine = currentToken?.indexInLine;
+      return new UnaryOperationNode(sign, nextFactor, line, indexInLine);
     } else {
       throw new Error(`Unexpected factor: ${token.lexeme}`);
     }
@@ -294,7 +337,11 @@ export class Parser {
       this.nextToken();
       declarations.push(this.parseVarDeclaration());
     }
-    return new VarDeclarationsListNode(declarations);
+
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new VarDeclarationsListNode(declarations, line, indexInLine);
   }
 
   private parseOutStatement(): OutStatementNode {
@@ -302,7 +349,10 @@ export class Parser {
     this.expectLexeme("(");
     const expression = this.parseExpression();
     this.expectLexeme(")");
-    return new OutStatementNode(expression);
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new OutStatementNode(expression, line, indexInLine);
   }
 
   private parseVarDeclaration(): VarDeclarationNode {
@@ -314,6 +364,10 @@ export class Parser {
       type = this.currentToken().lexeme;
       this.nextToken();
     }
-    return new VarDeclarationNode(id, type);
+
+    const currentToken = this.currentToken();
+    const line = currentToken?.line;
+    const indexInLine = currentToken?.indexInLine;
+    return new VarDeclarationNode(id, type, line, indexInLine);
   }
 }

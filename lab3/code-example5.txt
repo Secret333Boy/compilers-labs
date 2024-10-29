@@ -1,0 +1,6 @@
+package com.example.lab;
+
+fun main() {
+  var a = 1;
+  var a = 2;
+}

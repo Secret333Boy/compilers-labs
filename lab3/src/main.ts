@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import { Lexer, printSymbolTables, printTokens } from "../../lab2/src/lexer";
 import { Parser } from "./parser";
+import { SemanticAnalyzer } from "./analyzer";
 
 const main = () => {
   const lexer = new Lexer();
@@ -14,7 +15,11 @@ const main = () => {
   const ast = new Parser(tokens).parse();
 
   fs.writeFileSync("./ast.json", JSON.stringify(ast, null, 2));
-  console.log("\Parser: Синтаксичний аналіз завершено успішно");
+  console.log("Parser: Синтаксичний аналіз завершено успішно");
+
+  const analyzer = new SemanticAnalyzer();
+  analyzer.analyze(ast);
+  console.log("Analyzer: Семантичний аналіз завершено успішно");
 };
 
 main();
