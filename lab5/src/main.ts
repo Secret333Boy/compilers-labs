@@ -2,8 +2,7 @@ import fs from "node:fs";
 import { Lexer, printSymbolTables, printTokens } from "../../lab2/src/lexer";
 import { Parser } from "../../lab3/src/parser";
 import { SemanticAnalyzer } from "../../lab3/src/analyzer";
-import { Translator } from "./rpn-translator";
-import { RPNInterpreter } from "./rpn-interperter";
+import { CILTranslator } from "./cil.translator";
 
 const main = async () => {
   const lexer = new Lexer();
@@ -23,18 +22,12 @@ const main = async () => {
   analyzer.analyze(ast);
   console.log("Analyzer: Семантичний аналіз завершено успішно");
 
-  const translator = new Translator();
+  const translator = new CILTranslator();
 
-  translator.translate(ast);
-  console.log("Translator: Трансляцію у ПОЛІЗ завершено успішно");
+  const cil = translator.translate(ast);
+  console.log("Translator: Трансляцію у CIL завершено успішно");
 
-  const rpn = translator.getOutput();
-
-  fs.writeFileSync("./out.rpn", rpn.join(" "));
-
-  const interpreter = new RPNInterpreter(rpn);
-  await interpreter.interprete();
-  console.log("Interpreter: Finished");
+  fs.writeFileSync("./out.il", cil);
 };
 
 main();
